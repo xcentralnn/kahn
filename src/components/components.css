@@ -1339,6 +1339,110 @@
   color: var(--color-cyan);
 }
 
+/* Hero Partner Badges */
+.hero-partner-chips {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.partner-badge-pill {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.02em;
+  transition: all 0.2s ease;
+}
+
+.partner-badge-pill:hover {
+  background: rgba(99, 102, 241, 0.12);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* Partners Section */
+.partners-section {
+  padding: 0 0 60px 0;
+}
+
+.partners-wrapper {
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(8, 12, 24, 0.6);
+}
+
+.partners-label-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-faint);
+  white-space: nowrap;
+}
+
+.partners-grid {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.partner-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  padding: 8px 14px;
+  transition: all 0.2s ease;
+}
+
+.partner-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.partner-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px currentColor;
+}
+
+.partner-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.partner-name {
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.partner-tier {
+  font-size: 0.7rem;
+  color: var(--text-faint);
+}
+
 /* Responsive Media Queries */
 @media (max-width: 1024px) {
   .delivery-plans-grid {

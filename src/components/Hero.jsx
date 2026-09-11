@@ -9,7 +9,7 @@ import {
   Clock,
   Cpu,
   Database,
-  Sparkles
+  Award
 } from 'lucide-react'
 
 export default function Hero() {
@@ -20,65 +20,65 @@ export default function Hero() {
       name: 'Starter / Landing Page',
       delivery: '2 - 3 Days',
       stack: 'S3 + CloudFront + Cloudflare WAF + SSL',
-      pipeline: 'GitHub Actions / Bitbucket to Global CDN',
-      highlight: 'Ultra-fast global TTFB (<40ms), DDoS protection, zero server maintenance required.',
+      pipeline: 'Git Push to Global Edge CDN',
+      highlight: 'Sub-40ms global TTFB, DDoS protection, zero server maintenance.',
       nodes: [
-        { name: 'Git Commit', role: 'Main branch push', type: 'git' },
-        { name: 'CI/CD Gating', role: 'Automated build & lint', type: 'ci' },
-        { name: 'CloudFront CDN', role: '300+ Edge POPs & TLS 1.3', type: 'cloud' },
-        { name: 'S3 / Vercel Edge', role: 'Static origin assets', type: 'storage' },
+        { name: 'Git Commit', role: 'Main push', type: 'git' },
+        { name: 'CI/CD Gating', role: 'Lint & build', type: 'ci' },
+        { name: 'CloudFront CDN', role: '300+ Edge POPs', type: 'cloud' },
+        { name: 'S3 Origin', role: 'Static assets', type: 'storage' },
       ],
     },
     monolith: {
       name: 'Fullstack Monolith & API',
       delivery: '1 - 2 Weeks',
-      stack: 'AWS ECS Fargate / DigitalOcean + RDS PostgreSQL + Redis',
-      pipeline: 'Docker Multi-Stage Build + Automated DB Migrations + Staging/Prod',
-      highlight: 'Production-ready High Availability with automated point-in-time database backups and SSL renewal.',
+      stack: 'AWS ECS Fargate / VPS + RDS PostgreSQL + Redis',
+      pipeline: 'Docker Multi-Stage Build + Automated DB Migrations',
+      highlight: 'High availability with automated database backups and zero-downtime deploys.',
       nodes: [
-        { name: 'ALB Gateway', role: 'TLS termination & WAF', type: 'cloud' },
-        { name: 'ECS Tasks / VPS', role: 'Auto-healing container runtime', type: 'compute' },
-        { name: 'RDS Multi-AZ', role: 'PostgreSQL / MySQL with PITR', type: 'storage' },
-        { name: 'Redis Cache', role: 'Session store & fast query cache', type: 'cache' },
+        { name: 'ALB Gateway', role: 'WAF & TLS', type: 'cloud' },
+        { name: 'ECS Tasks', role: 'Auto-healing containers', type: 'compute' },
+        { name: 'RDS Multi-AZ', role: 'Postgres / MySQL', type: 'storage' },
+        { name: 'Redis Cache', role: 'Fast cache & queue', type: 'cache' },
       ],
     },
     k8s: {
       name: 'Cloud-Native Kubernetes',
       delivery: '2 - 4 Weeks',
       stack: 'AWS EKS / GCP GKE + ArgoCD GitOps + Helm + Prometheus',
-      pipeline: 'Bitbucket/GitLab/GitHub -> Image Scan -> GitOps Sync -> Canary Deploy',
-      highlight: 'Enterprise Kubernetes cluster with HPA auto-scaling, cert-manager, external-dns, and 24/7 Prometheus/Grafana alerts.',
+      pipeline: 'GitLab / Bitbucket / GitHub to ArgoCD Canary Sync',
+      highlight: 'Auto-scaling cluster with Karpenter, cert-manager, and Grafana observability.',
       nodes: [
-        { name: 'Ingress Controller', role: 'Traefik / NGINX with Auto SSL', type: 'cloud' },
-        { name: 'EKS Worker Nodes', role: 'Spot + On-Demand Karpenter fleet', type: 'compute' },
-        { name: 'ArgoCD GitOps', role: 'Declarative state synchronization', type: 'ci' },
-        { name: 'Monitoring Stack', role: 'Prometheus, Grafana, Loki', type: 'monitor' },
+        { name: 'Ingress Controller', role: 'Auto SSL certs', type: 'cloud' },
+        { name: 'K8s Worker Nodes', role: 'Spot + On-Demand', type: 'compute' },
+        { name: 'ArgoCD GitOps', role: 'Declarative sync', type: 'ci' },
+        { name: 'Monitoring Stack', role: 'Prometheus & Grafana', type: 'monitor' },
+      ],
+    },
+    gpu: {
+      name: 'Private AI / LLM & GPU Fleet',
+      delivery: '1 - 3 Weeks',
+      stack: 'NVIDIA (H100/L40S) + AMD (MI300X) + Intel Gaudi + vLLM / Triton',
+      pipeline: 'AWQ / FP8 Quantization + Private RAG + High-Throughput API',
+      highlight: 'Sub-30ms first token, complete data privacy, cloud or on-prem GPU orchestration.',
+      nodes: [
+        { name: 'AI API Gateway', role: 'LiteLLM + Cache', type: 'cloud' },
+        { name: 'GPU Cluster', role: 'NVIDIA / AMD / Intel', type: 'compute' },
+        { name: 'vLLM Engine', role: 'PagedAttention', type: 'ci' },
+        { name: 'Vector Database', role: 'Qdrant / Milvus', type: 'storage' },
       ],
     },
     multicloud: {
       name: 'Enterprise Multi-Cloud & FinOps',
       delivery: 'Custom Sprints',
-      stack: 'AWS + GCP + Azure Mesh + Terraform IaC + Zero-Trust IAM',
-      pipeline: 'Cross-cloud unified CI/CD with disaster recovery failover drills',
-      highlight: 'Eliminate single cloud risk with active-active routing, automated cost optimization (-40%), and SOC2 compliance.',
+      stack: 'AWS + Azure + GCP Mesh + Terraform IaC',
+      pipeline: 'Cross-cloud CI/CD with Disaster Recovery drills',
+      highlight: 'Zero single-cloud risk, active-active failover, and -40% cloud cost reduction.',
       nodes: [
-        { name: 'Global Traffic Mgr', role: 'DNS latency routing & health probes', type: 'cloud' },
-        { name: 'AWS Primary Region', role: 'Core transaction cluster', type: 'compute' },
-        { name: 'GCP / Azure Backup', role: 'Warm standby / Analytics read replicas', type: 'compute' },
-        { name: 'FinOps Optimizer', role: 'Spot arbitrage & reserved right-sizing', type: 'finops' },
-      ],
-    },
-    gpu: {
-      name: 'Private AI / LLM & GPU Infrastructure',
-      delivery: '1 - 3 Weeks',
-      stack: 'NVIDIA (CUDA / TensorRT) + AMD ROCm + Intel Gaudi + vLLM / Triton',
-      pipeline: 'Automated Model Quantization (AWQ/FP8) + Private RAG + High-Throughput Serving API',
-      highlight: 'Sub-30ms first-token latency, air-gapped data privacy, auto-scaling GPU inference clusters across cloud or on-prem.',
-      nodes: [
-        { name: 'AI API Gateway', role: 'LiteLLM + Rate Limiting + Semantic Cache', type: 'cloud' },
-        { name: 'GPU Cluster Engine', role: 'NVIDIA H100 / AMD MI300X / Intel Gaudi', type: 'compute' },
-        { name: 'vLLM / Triton', role: 'PagedAttention & Continuous Batching', type: 'ci' },
-        { name: 'Vector DB / RAG', role: 'Qdrant / Milvus / pgvector Hybrid Search', type: 'storage' },
+        { name: 'Global Traffic Mgr', role: 'Latency routing', type: 'cloud' },
+        { name: 'AWS Primary Region', role: 'Core compute', type: 'compute' },
+        { name: 'Azure / GCP Backup', role: 'Warm standby', type: 'compute' },
+        { name: 'FinOps Engine', role: 'Spot arbitrage', type: 'finops' },
       ],
     },
   }
@@ -90,41 +90,34 @@ export default function Hero() {
       <div className="container hero-container">
         <div className="hero-content">
           <div className="badge hero-badge">
-            <span className="badge-dot"></span>
-            <span>Cloud Infrastructure &amp; AI Delivery Partner</span>
+            <Award size={14} className="text-cyan" />
+            <span>Official Cloud, AI &amp; CNCF Partner</span>
           </div>
 
           <h1 className="hero-title">
-            From High-Speed Landing Pages to <span className="accent">GPU Accelerated AI Fleets</span>
+            Architect, Deploy &amp; Scale <span className="accent">Cloud &amp; AI Infrastructure</span>
           </h1>
 
           <p className="hero-description">
-            We architect, automate, and maintain battle-tested cloud platforms. From static landing pages and monoliths to self-hosted LLM clusters (NVIDIA, AMD, Intel) and multi-cloud Kubernetes with 24/7 SRE support.
+            End-to-end DevOps, GPU acceleration, and cloud delivery consulting. From landing pages and monoliths to multi-cloud Kubernetes fleets with 24/7 SRE support.
           </p>
 
           <div className="hero-actions">
             <a href="#plans" className="btn btn-lg btn-primary">
-              <span>Explore Delivery Plans</span>
+              <span>Delivery Plans</span>
               <ArrowRight size={18} />
             </a>
             <a href="#contact" className="btn btn-lg btn-secondary">
-              <span>Book Architecture Review</span>
+              <span>Book Consultation</span>
             </a>
           </div>
 
-          <div className="hero-trust-signals">
-            <div className="trust-item">
-              <CheckCircle2 size={16} className="trust-icon" />
-              <span>100% Terraform/IaC Handover</span>
-            </div>
-            <div className="trust-item">
-              <CheckCircle2 size={16} className="trust-icon" />
-              <span>NVIDIA, AMD &amp; Intel GPU Stacks</span>
-            </div>
-            <div className="trust-item">
-              <CheckCircle2 size={16} className="trust-icon" />
-              <span>Sub-15m P1 SLA Coverage</span>
-            </div>
+          <div className="hero-partner-chips">
+            <span className="partner-badge-pill">AWS Partner</span>
+            <span className="partner-badge-pill">Microsoft Azure</span>
+            <span className="partner-badge-pill">Google Cloud</span>
+            <span className="partner-badge-pill">NVIDIA Partner</span>
+            <span className="partner-badge-pill">CNCF KCSP</span>
           </div>
         </div>
 
@@ -142,28 +135,28 @@ export default function Hero() {
                   onClick={() => setSelectedPlan('gpu')}
                 >
                   <Cpu size={14} />
-                  <span>GPU &amp; Private AI / LLM</span>
+                  <span>AI &amp; GPU Fleet</span>
                 </button>
                 <button 
                   className={`console-tab-btn ${selectedPlan === 'k8s' ? 'active' : ''}`}
                   onClick={() => setSelectedPlan('k8s')}
                 >
                   <Layers size={14} />
-                  <span>Kubernetes &amp; Scale</span>
+                  <span>Kubernetes</span>
                 </button>
                 <button 
                   className={`console-tab-btn ${selectedPlan === 'monolith' ? 'active' : ''}`}
                   onClick={() => setSelectedPlan('monolith')}
                 >
                   <Database size={14} />
-                  <span>Monolith &amp; Backend</span>
+                  <span>Monolith / API</span>
                 </button>
                 <button 
                   className={`console-tab-btn ${selectedPlan === 'multicloud' ? 'active' : ''}`}
                   onClick={() => setSelectedPlan('multicloud')}
                 >
                   <Cloud size={14} />
-                  <span>Multi-Cloud Mesh</span>
+                  <span>Multi-Cloud</span>
                 </button>
                 <button 
                   className={`console-tab-btn ${selectedPlan === 'landing' ? 'active' : ''}`}
@@ -186,7 +179,7 @@ export default function Hero() {
                   <h3 className="blueprint-title">{current.name}</h3>
                 </div>
                 <div className="blueprint-stack-box">
-                  <span className="blueprint-label">Infrastructure &amp; AI Stack</span>
+                  <span className="blueprint-label">Stack</span>
                   <span className="blueprint-stack-val">{current.stack}</span>
                 </div>
               </div>
@@ -206,8 +199,8 @@ export default function Hero() {
 
               <div className="blueprint-bottom-summary">
                 <div className="blueprint-pipeline-info">
-                  <GitBranch size={16} className="text-cyan" />
-                  <span><strong>End-to-End Pipeline:</strong> {current.pipeline}</span>
+                  <GitBranch size={15} className="text-cyan" />
+                  <span><strong>Pipeline:</strong> {current.pipeline}</span>
                 </div>
                 <p className="blueprint-highlight-text">{current.highlight}</p>
               </div>

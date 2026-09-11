@@ -1,4 +1,4 @@
-import { Terminal, ShieldCheck, Mail, MessageSquare } from 'lucide-react'
+import { Terminal } from 'lucide-react'
 
 export default function Footer() {
   return (
@@ -15,59 +15,61 @@ export default function Footer() {
               </span>
             </a>
             <p className="footer-brand-desc">
-              Premier cloud infrastructure, modern delivery pipelines, and 24/7 SRE engineering partner. From high-speed landing pages to global multi-cloud fleets.
+              Cloud infrastructure, GPU/AI acceleration, and 24/7 SRE delivery partner.
             </p>
             <div className="footer-status-badge">
               <span className="status-dot-pulse"></span>
-              <span>All Client Cloud Fleets Operational (99.999% SLA)</span>
+              <span>Client Cloud Fleets: 99.999% SLA</span>
             </div>
           </div>
 
           <div className="footer-links-col">
             <span className="footer-col-title">Delivery Plans</span>
             <ul>
-              <li><a href="#plans">Starter / Landing Page (2-3 Days)</a></li>
-              <li><a href="#plans">Monolith &amp; Backend (1-2 Weeks)</a></li>
-              <li><a href="#plans">Cloud-Native Kubernetes</a></li>
-              <li><a href="#plans">Enterprise Multi-Cloud Mesh</a></li>
-              <li><a href="#maintenance">24/7 SRE Maintenance Tiers</a></li>
+              <li><a href="#plans">Starter / Landing (2-3 Days)</a></li>
+              <li><a href="#plans">Monolith &amp; Backend (1-2 Wks)</a></li>
+              <li><a href="#plans">Kubernetes &amp; Scale (2-4 Wks)</a></li>
+              <li><a href="#plans">AI / LLM &amp; GPU Fleet</a></li>
+              <li><a href="#plans">Multi-Cloud &amp; FinOps</a></li>
             </ul>
           </div>
 
           <div className="footer-links-col">
-            <span className="footer-col-title">Consulting Scope</span>
+            <span className="footer-col-title">Services</span>
             <ul>
-              <li><a href="#services">End-to-End CI/CD Pipelines</a></li>
-              <li><a href="#services">Terraform &amp; OpenTofu IaC</a></li>
-              <li><a href="#services">FinOps Cloud Bill Slashing</a></li>
-              <li><a href="#services">Disaster Recovery &amp; Failover</a></li>
-              <li><a href="#services">Zero-Trust Security &amp; SOC2</a></li>
+              <li><a href="#services">NVIDIA / AMD / Intel GPU</a></li>
+              <li><a href="#services">CI/CD Pipelines</a></li>
+              <li><a href="#services">Terraform IaC</a></li>
+              <li><a href="#services">24/7 SRE Maintenance</a></li>
+              <li><a href="#services">FinOps Cost Slashing</a></li>
             </ul>
           </div>
 
           <div className="footer-links-col">
-            <span className="footer-col-title">Direct Connect</span>
+            <span className="footer-col-title">Official Partners</span>
+            <ul>
+              <li><span className="cert-pill">AWS Partner Network</span></li>
+              <li><span className="cert-pill">Microsoft Azure Partner</span></li>
+              <li><span className="cert-pill">Google Cloud Partner</span></li>
+              <li><span className="cert-pill">NVIDIA Partner Network</span></li>
+              <li><span className="cert-pill">CNCF KCSP Certified</span></li>
+            </ul>
+          </div>
+
+          <div className="footer-links-col">
+            <span className="footer-col-title">Contact</span>
             <ul>
               <li><a href="mailto:consulting@valnia.cloud">consulting@valnia.cloud</a></li>
-              <li><a href="#contact">Schedule Architecture Call</a></li>
-              <li><a href="#estimator">Project Scope Calculator</a></li>
+              <li><a href="#contact">Book Architecture Review</a></li>
+              <li><a href="#estimator">Scope Estimator</a></li>
               <li><a href="#faq">Delivery FAQ</a></li>
-            </ul>
-          </div>
-
-          <div className="footer-links-col">
-            <span className="footer-col-title">Certifications</span>
-            <ul>
-              <li><span className="cert-pill">AWS Solutions Architect Pro</span></li>
-              <li><span className="cert-pill">CKA Kubernetes Admin</span></li>
-              <li><span className="cert-pill">HashiCorp Terraform Associate</span></li>
             </ul>
           </div>
         </div>
 
         <div className="footer-bottom-bar">
           <p className="copyright-text">
-            &copy; 2026 Valnia Cloud Consulting. All rights reserved. 100% Infrastructure as Code handover.
+            &copy; 2026 Valnia Cloud &amp; AI Consulting. 100% Infrastructure as Code handover.
           </p>
           <div className="footer-socials">
             <a href="https://github.com/xcentralnn/valnia" target="_blank" rel="noreferrer" aria-label="GitHub">

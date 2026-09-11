@@ -6,74 +6,73 @@ import {
   ShieldAlert, 
   Cpu, 
   CheckCircle2,
-  Terminal,
-  Zap
+  Terminal
 } from 'lucide-react'
 
 export default function ServicesScope() {
   const services = [
     {
       icon: Cpu,
-      title: 'GPU & Self-Hosted AI/LLM Infrastructure',
+      title: 'GPU & Self-Hosted AI/LLM',
       tag: 'NVIDIA • AMD • Intel',
-      description: 'End-to-end deployment of private LLMs, multimodal models, and vector search. We configure GPU drivers, container runtimes, and high-throughput inference engines with zero cloud API token leakage.',
+      description: 'Deploy private LLMs and vision models with high-throughput inference engines and zero API token leakage.',
       bullets: [
-        'NVIDIA (H100, A100, L40S, CUDA, TensorRT-LLM, vLLM)',
-        'AMD Instinct (MI300X, ROCm 6.x) & Intel (Gaudi 2/3, OpenVINO)',
-        'Private RAG architectures (Qdrant, Milvus, pgvector) & LiteLLM Gateway',
+        'NVIDIA (H100/A100/L40S, CUDA, TensorRT-LLM, vLLM)',
+        'AMD Instinct (MI300X, ROCm 6.x) & Intel Gaudi',
+        'Private RAG (Qdrant, Milvus) & LiteLLM Gateway',
       ],
     },
     {
       icon: GitMerge,
       title: 'End-to-End CI/CD Pipelines',
-      tag: 'Automation & Velocity',
-      description: 'Design and implementation of bulletproof continuous delivery pipelines. From commit to staging and production with automated testing, container image security scans, and instant rollback capability.',
+      tag: 'Speed & Reliability',
+      description: 'Bulletproof delivery pipelines with automated testing, container security scanning, and instant rollback.',
       bullets: [
         'Bitbucket Pipelines, GitHub Actions, GitLab CI & ArgoCD',
         'Vulnerability scanning with Trivy & Snyk gates',
-        'Zero-downtime Blue/Green and Canary rollouts',
+        'Zero-downtime Blue/Green & Canary deployments',
       ],
     },
     {
       icon: FileCode,
       title: 'Infrastructure as Code (IaC)',
-      tag: 'Declarative & Reliable',
-      description: 'Zero manual clicking in cloud consoles. All VPCs, subnets, clusters, databases, and IAM permissions are codified in clean, modular Terraform or OpenTofu modules.',
+      tag: '100% Declarative',
+      description: 'All VPCs, clusters, databases, and IAM permissions codified in clean, modular Terraform or OpenTofu.',
       bullets: [
         'Terraform, Terragrunt, OpenTofu & Ansible',
-        'Secure remote state management (S3 / DynamoDB locks)',
-        'Full documentation & architectural diagrams included',
+        'Secure remote state in S3 & DynamoDB locks',
+        'Complete architectural diagrams & documentation',
       ],
     },
     {
       icon: CloudSun,
-      title: 'Multi-Cloud & Hybrid Architecture',
-      tag: 'High Availability & Resilience',
-      description: 'Eliminate single-provider dependency. Architect active-active or active-passive disaster recovery across Amazon Web Services, Google Cloud, Microsoft Azure, and bare-metal environments.',
+      title: 'Multi-Cloud & Hybrid Mesh',
+      tag: 'High Availability',
+      description: 'Active-active or active-passive disaster recovery across AWS, Google Cloud, Azure, and bare-metal.',
       bullets: [
         'AWS, GCP, Azure & Bare-metal Kubernetes',
-        'Cross-cloud low-latency DNS & Global Traffic Management',
-        'Disaster recovery failover simulation & runbooks',
+        'Cross-cloud low-latency DNS traffic routing',
+        'Automated disaster recovery failover runbooks',
       ],
     },
     {
       icon: TrendingDown,
-      title: 'FinOps & Cloud Cost Slashing',
-      tag: '30% - 45% Typical Savings',
-      description: 'Stop burning budget on unneeded cloud capacity. We audit workloads, replace costly on-demand instances with automated Spot fleets, eliminate orphaned storage, and optimize data egress paths.',
+      title: 'FinOps Cloud Cost Slashing',
+      tag: '-30% to -45% Typical Savings',
+      description: 'Audit workloads, replace costly on-demand instances with automated Spot fleets, and right-size capacity.',
       bullets: [
         'Spot fleet & Karpenter automated orchestration',
-        'GPU spot instances & serverless LLM scaling',
-        'Savings Plans & Reserved Instance planning',
+        'GPU spot instances & serverless scaling',
+        'Savings Plans & Reserved Instance optimization',
       ],
     },
     {
       icon: ShieldAlert,
-      title: 'Zero-Trust Security & Compliance',
-      tag: 'SOC2, ISO27001 & CIS Ready',
-      description: 'Embed security directly into your delivery pipeline. Implement least-privilege IAM policies, automated secret rotation with Vault, SSL/TLS enforcement, and AWS WAF perimeter defense.',
+      title: 'Zero-Trust Security & Hardening',
+      tag: 'SOC2 & CIS Ready',
+      description: 'Embed security into your pipeline with least-privilege IAM, automated Vault secrets, and WAF defense.',
       bullets: [
-        'CIS Foundation Benchmark hardening',
+        'CIS Foundation Benchmark compliance',
         'Automated secret management & key rotation',
         'Air-gapped private model inference compliance',
       ],
@@ -86,13 +85,13 @@ export default function ServicesScope() {
         <div className="section-header">
           <div className="badge">
             <Terminal size={14} className="text-primary" />
-            <span>Consulting &amp; Engineering Scope</span>
+            <span>Core Capabilities</span>
           </div>
           <h2 className="section-title">
-            Complete End-to-End <span className="accent">DevOps, Cloud &amp; AI Delivery</span>
+            End-to-End <span className="accent">Cloud, DevOps &amp; AI Scope</span>
           </h2>
           <p className="section-subtitle">
-            From low-level NVIDIA/AMD GPU kernel tuning and high-speed CI/CD pipelines to high-level multi-cloud GitOps architecture.
+            From NVIDIA/AMD GPU kernel tuning and high-speed CI/CD to multi-cloud GitOps architecture.
           </p>
         </div>
 

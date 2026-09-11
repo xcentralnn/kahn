@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import PartnerBanner from './components/PartnerBanner'
 import DeliveryPlans from './components/DeliveryPlans'
 import ServicesScope from './components/ServicesScope'
 import MaintenanceSupport from './components/MaintenanceSupport'
@@ -18,6 +19,7 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
+        <PartnerBanner />
         <DeliveryPlans />
         <ServicesScope />
         <MaintenanceSupport />
