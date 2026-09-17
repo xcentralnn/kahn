@@ -2,11 +2,9 @@ package main
 
 import (
 	"context"
-	"embed"
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -21,9 +19,6 @@ import (
 	"github.com/creack/pty"
 	"github.com/gorilla/websocket"
 )
-
-//go:embed all:dist
-var distFS embed.FS
 
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  4096,
@@ -79,6 +74,15 @@ func loadToolVersions() map[string]string {
 	tools["curl"] = getToolVersion("curl", "--version")
 	tools["jq"] = getToolVersion("jq", "--version")
 	return tools
+}
+
+func handleRoot(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	_ = json.NewEncoder(w).Encode(map[string]string{
+		"service": "valnia-backend",
+		"status":  "healthy",
+		"role":    "jump-host",
+	})
 }
 
 func handleSystemInfo(w http.ResponseWriter, r *http.Request) {
@@ -201,31 +205,10 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
+	mux.HandleFunc("GET /", handleRoot)
 	mux.HandleFunc("GET /healthz", handleHealthz)
 	mux.HandleFunc("GET /api/system", handleSystemInfo)
 	mux.HandleFunc("/ws/terminal", handleTerminalWS)
-
-	distSub, err := fs.Sub(distFS, "dist")
-	if err != nil {
-		log.Fatalf("Failed to initialize dist assets: %v", err)
-	}
-
-	fileServer := http.FileServer(http.FS(distSub))
-	mux.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		path := strings.TrimPrefix(r.URL.Path, "/")
-		if path == "" {
-			fileServer.ServeHTTP(w, r)
-			return
-		}
-		f, err := distSub.Open(path)
-		if err == nil {
-			_ = f.Close()
-			fileServer.ServeHTTP(w, r)
-			return
-		}
-		r.URL.Path = "/"
-		fileServer.ServeHTTP(w, r)
-	})
 
 	server := &http.Server{
 		Addr:              ":" + port,
@@ -238,14 +221,14 @@ func main() {
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 
 	go func() {
-		log.Printf("Valnia Cloud Bastion server listening on :%s", port)
+		log.Printf("Valnia Bastion backend listening on :%s", port)
 		if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			log.Fatalf("Server error: %v", err)
 		}
 	}()
 
 	<-stop
-	log.Println("Shutting down server gracefully...")
+	log.Println("Shutting down backend server gracefully...")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
@@ -253,5 +236,5 @@ func main() {
 	if err := server.Shutdown(ctx); err != nil {
 		log.Fatalf("Server shutdown failed: %v", err)
 	}
-	log.Println("Server stopped")
+	log.Println("Backend server stopped")
 }

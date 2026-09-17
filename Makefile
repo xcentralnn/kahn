@@ -1,26 +1,37 @@
 PROJECT_ID ?= your-gcp-project-id
 REGION ?= asia-southeast1
 REPO_NAME ?= serverless-apps
-SERVICE_NAME ?= valnia
-IMAGE_TAG ?= latest
-IMAGE_URI := $(REGION)-docker.pkg.dev/$(PROJECT_ID)/$(REPO_NAME)/$(SERVICE_NAME):$(IMAGE_TAG)
+TAG ?= latest
 
-.PHONY: help build run auth docker-auth push test
+FE_IMAGE := $(REGION)-docker.pkg.dev/$(PROJECT_ID)/$(REPO_NAME)/valnia-frontend:$(TAG)
+BE_IMAGE := $(REGION)-docker.pkg.dev/$(PROJECT_ID)/$(REPO_NAME)/valnia-backend:$(TAG)
+
+.PHONY: help build up down auth docker-auth push push-fe push-be
 
 help:
 	@echo "Available commands:"
-	@echo "  make build         - Build Valnia Jump Host Docker image"
-	@echo "  make run           - Run Valnia container locally on port 8080"
-	@echo "  make auth          - Authenticate gcloud CLI"
-	@echo "  make docker-auth   - Configure Docker authentication for Artifact Registry"
-	@echo "  make push          - Tag and push Docker image to Artifact Registry"
-	@echo "  make test URL=...  - Check healthz of deployed service"
+	@echo "  make up          - Run frontend and backend locally with docker-compose"
+	@echo "  make down        - Stop local docker-compose containers"
+	@echo "  make build       - Build both frontend and backend Docker images"
+	@echo "  make build-fe    - Build frontend Docker image"
+	@echo "  make build-be    - Build backend Docker image"
+	@echo "  make push        - Push both frontend and backend images to Artifact Registry"
+	@echo "  make push-fe     - Push frontend image to Artifact Registry"
+	@echo "  make push-be     - Push backend image to Artifact Registry"
 
-build:
-	docker build -t $(SERVICE_NAME):$(IMAGE_TAG) .
+build: build-fe build-be
 
-run:
-	docker run --rm -it -p 8080:8080 $(SERVICE_NAME):$(IMAGE_TAG)
+build-fe:
+	cd frontend && docker build -t valnia-frontend:$(TAG) .
+
+build-be:
+	cd backend && docker build -t valnia-backend:$(TAG) .
+
+up:
+	docker compose up --build -d
+
+down:
+	docker compose down
 
 auth:
 	gcloud auth login
@@ -30,10 +41,12 @@ auth:
 docker-auth:
 	gcloud auth configure-docker $(REGION)-docker.pkg.dev --quiet
 
-push: build docker-auth
-	docker tag $(SERVICE_NAME):$(IMAGE_TAG) $(IMAGE_URI)
-	docker push $(IMAGE_URI)
+push: push-fe push-be
 
-test:
-	@if [ -z "$(URL)" ]; then echo "Usage: make test URL=https://service-xxx.run.app"; exit 1; fi
-	curl -s "$(URL)/healthz"
+push-fe: build-fe docker-auth
+	docker tag valnia-frontend:$(TAG) $(FE_IMAGE)
+	docker push $(FE_IMAGE)
+
+push-be: build-be docker-auth
+	docker tag valnia-backend:$(TAG) $(BE_IMAGE)
+	docker push $(BE_IMAGE)

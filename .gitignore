@@ -24,3 +24,4 @@ dist-ssr
 *.sw?
 valnia-server
 server
+backend/valnia-backend
