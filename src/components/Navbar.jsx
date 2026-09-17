@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Terminal, Shield, Menu, X, ArrowRight, PhoneCall } from 'lucide-react'
 
-export default function Navbar() {
+export default function Navbar({ onOpenTerminal }) {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -23,7 +23,7 @@ export default function Navbar() {
           <span className="brand-name">
             Valnia<span className="brand-dot">.</span>
           </span>
-          <span className="brand-tag">Cloud &amp; Delivery</span>
+          <span className="brand-tag">Cloud &amp; Bastion</span>
         </a>
 
         <nav className="nav-links desktop-only">
@@ -35,6 +35,14 @@ export default function Navbar() {
         </nav>
 
         <div className="nav-actions desktop-only">
+          <button 
+            onClick={onOpenTerminal} 
+            className="btn-nav-terminal"
+            title="Open Web Terminal Jump Host"
+          >
+            <Terminal size={15} />
+            <span>Cloud Bastion</span>
+          </button>
           <a href="#estimator" className="btn btn-sm btn-secondary">
             Estimate Scope
           </a>
@@ -55,6 +63,14 @@ export default function Navbar() {
 
       {mobileMenuOpen && (
         <div className="mobile-menu-drawer">
+          <button 
+            onClick={() => { setMobileMenuOpen(false); onOpenTerminal && onOpenTerminal(); }} 
+            className="btn-nav-terminal w-full"
+            style={{ marginBottom: '12px' }}
+          >
+            <Terminal size={16} />
+            <span>Open Cloud Bastion Terminal</span>
+          </button>
           <a href="#plans" onClick={() => setMobileMenuOpen(false)}>Delivery Plans</a>
           <a href="#services" onClick={() => setMobileMenuOpen(false)}>Services &amp; Scope</a>
           <a href="#maintenance" onClick={() => setMobileMenuOpen(false)}>24/7 SRE Support</a>

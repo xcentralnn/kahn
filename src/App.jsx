@@ -9,16 +9,18 @@ import ProjectEstimator from './components/ProjectEstimator'
 import ContactConsulting from './components/ContactConsulting'
 import FAQ from './components/FAQ'
 import Footer from './components/Footer'
+import CloudBastionModal from './components/CloudBastionModal'
 
 export default function App() {
   const [selectedScope, setSelectedScope] = useState(null)
+  const [isTerminalOpen, setIsTerminalOpen] = useState(false)
 
   return (
     <div className="app-wrapper">
       <div className="ambient-grid" aria-hidden="true"></div>
-      <Navbar />
+      <Navbar onOpenTerminal={() => setIsTerminalOpen(true)} />
       <main>
-        <Hero />
+        <Hero onOpenTerminal={() => setIsTerminalOpen(true)} />
         <PartnerBanner />
         <DeliveryPlans />
         <ServicesScope />
@@ -28,6 +30,11 @@ export default function App() {
         <FAQ />
       </main>
       <Footer />
+
+      <CloudBastionModal 
+        isOpen={isTerminalOpen} 
+        onClose={() => setIsTerminalOpen(false)} 
+      />
     </div>
   )
 }
