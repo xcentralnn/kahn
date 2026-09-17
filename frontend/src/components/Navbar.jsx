@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Terminal, Shield, Menu, X, ArrowRight, PhoneCall } from 'lucide-react'
+import { Terminal, Menu, X, PhoneCall } from 'lucide-react'
 
 export default function Navbar({ onOpenTerminal }) {
   const [scrolled, setScrolled] = useState(false)
@@ -20,16 +20,18 @@ export default function Navbar({ onOpenTerminal }) {
           <div className="brand-logo-icon">
             <Terminal size={20} className="icon-brand" />
           </div>
-          <span className="brand-name">
-            Valnia<span className="brand-dot">.</span>
-          </span>
-          <span className="brand-tag">Cloud &amp; Bastion</span>
+          <div className="brand-text-group">
+            <span className="brand-name">
+              Valnia<span className="brand-dot">.</span>
+            </span>
+            <span className="brand-tag">Cloud Bastion</span>
+          </div>
         </a>
 
         <nav className="nav-links desktop-only">
           <a href="#plans" className="nav-link">Delivery Plans</a>
-          <a href="#services" className="nav-link">Services &amp; Scope</a>
-          <a href="#maintenance" className="nav-link">24/7 SRE Support</a>
+          <a href="#services" className="nav-link">Services</a>
+          <a href="#maintenance" className="nav-link">24/7 SRE</a>
           <a href="#estimator" className="nav-link">Scope Estimator</a>
           <a href="#faq" className="nav-link">FAQ</a>
         </nav>
@@ -38,16 +40,14 @@ export default function Navbar({ onOpenTerminal }) {
           <button 
             onClick={onOpenTerminal} 
             className="btn-nav-terminal"
-            title="Open Web Terminal Jump Host"
+            title="Launch Cloud Bastion Terminal"
           >
+            <span className="live-ping-dot"></span>
             <Terminal size={15} />
             <span>Cloud Bastion</span>
           </button>
-          <a href="#estimator" className="btn btn-sm btn-secondary">
-            Estimate Scope
-          </a>
-          <a href="#contact" className="btn btn-sm btn-primary">
-            <PhoneCall size={15} />
+          <a href="#contact" className="btn btn-sm btn-primary nav-btn-cta">
+            <PhoneCall size={14} />
             <span>Book Consultation</span>
           </a>
         </div>
@@ -68,17 +68,20 @@ export default function Navbar({ onOpenTerminal }) {
             className="btn-nav-terminal w-full"
             style={{ marginBottom: '12px' }}
           >
+            <span className="live-ping-dot"></span>
             <Terminal size={16} />
             <span>Open Cloud Bastion Terminal</span>
           </button>
           <a href="#plans" onClick={() => setMobileMenuOpen(false)}>Delivery Plans</a>
-          <a href="#services" onClick={() => setMobileMenuOpen(false)}>Services &amp; Scope</a>
+          <a href="#services" onClick={() => setMobileMenuOpen(false)}>Services</a>
           <a href="#maintenance" onClick={() => setMobileMenuOpen(false)}>24/7 SRE Support</a>
           <a href="#estimator" onClick={() => setMobileMenuOpen(false)}>Scope Estimator</a>
           <a href="#faq" onClick={() => setMobileMenuOpen(false)}>FAQ</a>
           <div className="mobile-drawer-actions">
-            <a href="#estimator" className="btn btn-secondary w-full" onClick={() => setMobileMenuOpen(false)}>Estimate Scope</a>
-            <a href="#contact" className="btn btn-primary w-full" onClick={() => setMobileMenuOpen(false)}>Book Consultation</a>
+            <a href="#contact" className="btn btn-primary w-full" onClick={() => setMobileMenuOpen(false)}>
+              <PhoneCall size={15} />
+              <span>Book Consultation</span>
+            </a>
           </div>
         </div>
       )}

@@ -470,27 +470,3 @@
   color: #94a3b8;
   word-break: break-all;
 }
-
-/* Navbar terminal button */
-.btn-nav-terminal {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  background: rgba(56, 189, 248, 0.1);
-  border: 1px solid rgba(56, 189, 248, 0.35);
-  color: #38bdf8;
-  border-radius: 8px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
-}
-
-.btn-nav-terminal:hover {
-  background: #38bdf8;
-  color: #040711;
-  box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
-  transform: translateY(-1px);
-}

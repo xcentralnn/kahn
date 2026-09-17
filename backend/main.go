@@ -205,7 +205,7 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("GET /", handleRoot)
+	mux.HandleFunc("GET /{$}", handleRoot)
 	mux.HandleFunc("GET /healthz", handleHealthz)
 	mux.HandleFunc("GET /api/system", handleSystemInfo)
 	mux.HandleFunc("/ws/terminal", handleTerminalWS)
