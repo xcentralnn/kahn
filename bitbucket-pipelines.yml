@@ -1,0 +1,64 @@
+image: google/cloud-sdk:alpine
+
+pipelines:
+  branches:
+    main:
+      - step:
+          name: Build Multi-Arch & Deploy to Cloud Run
+          services:
+            - docker
+          caches:
+            - docker
+          script:
+            # 1. Xác thực Google Cloud SDK bằng Service Account Key
+            - echo $GCP_SA_KEY | base64 -d > /tmp/gcp-key.json
+            - gcloud auth activate-service-account --key-file=/tmp/gcp-key.json
+            - gcloud config set project $GCP_PROJECT_ID
+            - gcloud auth configure-docker ${GCP_REGION:-asia-southeast1}-docker.pkg.dev --quiet
+
+            # 2. Cài đặt Docker Buildx & QEMU để hỗ trợ Multi-Arch (ARM64 và AMD64)
+            - apk add --no-cache curl jq
+            - docker run --privileged --rm tonistiigi/binfmt --install all
+            - docker buildx create --use --name multiarch-builder
+            - docker buildx inspect --bootstrap
+
+            # 3. Định nghĩa biến Image Tag
+            - REGISTRY="${GCP_REGION:-asia-southeast1}-docker.pkg.dev/${GCP_PROJECT_ID}/${GCP_ARTIFACT_REPO:-valnia}"
+            - COMMIT_TAG="$BITBUCKET_COMMIT"
+
+            # 4. Build & Push Frontend Image (linux/amd64, linux/arm64)
+            - >-
+              docker buildx build
+              --platform linux/amd64,linux/arm64
+              -t ${REGISTRY}/valnia-frontend:${COMMIT_TAG}
+              -t ${REGISTRY}/valnia-frontend:latest
+              --push
+              ./frontend
+
+            # 5. Build & Push Backend Image (linux/amd64, linux/arm64)
+            - >-
+              docker buildx build
+              --platform linux/amd64,linux/arm64
+              -t ${REGISTRY}/valnia-backend:${COMMIT_TAG}
+              -t ${REGISTRY}/valnia-backend:latest
+              --push
+              ./backend
+
+            # 6. Deploy Backend lên Cloud Run
+            - >-
+              gcloud run deploy valnia-be
+              --image ${REGISTRY}/valnia-backend:${COMMIT_TAG}
+              --region ${GCP_REGION:-asia-southeast1}
+              --platform managed
+              --allow-unauthenticated
+              --timeout 3600
+
+            # 7. Deploy Frontend lên Cloud Run
+            - >-
+              gcloud run deploy valnia-fe
+              --image ${REGISTRY}/valnia-frontend:${COMMIT_TAG}
+              --region ${GCP_REGION:-asia-southeast1}
+              --platform managed
+              --allow-unauthenticated
+
+            - rm -f /tmp/gcp-key.json
