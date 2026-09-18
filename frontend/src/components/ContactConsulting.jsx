@@ -1,229 +1,150 @@
-import { useState, useEffect } from 'react'
-import { 
-  Send, 
-  CheckCircle2, 
-  Mail, 
-  MessageSquare, 
-  Clock, 
-  ShieldCheck, 
-  PhoneCall,
-  Sparkles,
-  Cpu
-} from 'lucide-react'
+import { useState } from 'react'
+import { Send, Shield, Clock, CheckCircle2, Lock, FileText } from 'lucide-react'
 
 export default function ContactConsulting({ prefilledScope }) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
-    scopePlan: 'ai-gpu',
-    cloud: 'nvidia',
-    timeline: 'asap',
+    scopeType: 'Automated Cloud Resource Audit',
+    cloudCount: '1 - 10 Cloud Accounts',
     message: '',
   })
-
-  useEffect(() => {
-    if (prefilledScope) {
-      setFormData((prev) => ({
-        ...prev,
-        scopePlan: prefilledScope.scale || prev.scopePlan,
-        cloud: prefilledScope.cloud || prev.cloud,
-      }))
-    }
-  }, [prefilledScope])
-
   const [submitted, setSubmitted] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (formData.name && formData.email) {
-      setSubmitted(true)
-    }
+    setSubmitted(true)
   }
 
   return (
     <section className="contact-section" id="contact">
       <div className="container">
-        <div className="section-header">
-          <div className="badge">
-            <PhoneCall size={14} className="text-cyan" />
-            <span>Architecture Review &amp; Consultation</span>
-          </div>
-          <h2 className="section-title">
-            Let's Architect Your <span className="accent">Next Cloud or AI Milestone</span>
-          </h2>
-          <p className="section-subtitle">
-            Speak directly with a Principal Cloud &amp; AI Architect. We evaluate your stack (Cloud, GPU, CI/CD, SRE), calculate timeline and budget, and provide a concrete delivery roadmap.
-          </p>
-        </div>
-
         <div className="contact-grid">
-          <div className="contact-info-panel glass-panel">
-            <div className="info-block">
-              <div className="info-icon-box">
-                <Clock size={20} className="text-cyan" />
+          <div className="contact-info">
+            <div className="badge">
+              <Shield size={14} className="text-primary" />
+              <span>Confidential Security Assessment</span>
+            </div>
+            <h2 className="section-title">
+              Request Your <span className="accent">Cloud Audit & Pentest</span>
+            </h2>
+            <p className="contact-desc">
+              Schedule an automated 15-minute read-only cloud resource scan or initiate a confidential penetration testing scoping call with our certified security architects.
+            </p>
+
+            <div className="nda-card">
+              <div className="nda-icon-box">
+                <Lock size={20} className="text-primary" />
               </div>
               <div>
-                <h4>2-Hour SLA Response Time</h4>
-                <p>All inquiries are reviewed directly by our Principal Cloud &amp; AI Architect team, not junior account managers.</p>
+                <h4 className="nda-title">NDA & Strict Confidentiality Guaranteed</h4>
+                <p className="nda-desc">
+                  We sign bilateral Non-Disclosure Agreements prior to receiving read-only credentials or initiating offensive testing. Your data and architecture remain strictly confidential.
+                </p>
               </div>
             </div>
 
-            <div className="info-block">
-              <div className="info-icon-box">
-                <ShieldCheck size={20} className="text-emerald" />
-              </div>
-              <div>
-                <h4>NDA &amp; Strict Confidentiality</h4>
-                <p>We are happy to sign standard bilateral NDAs before reviewing private repositories, model weights, or cloud credentials.</p>
-              </div>
-            </div>
-
-            <div className="info-block">
-              <div className="info-icon-box">
-                <Cpu size={20} className="text-primary" />
-              </div>
-              <div>
-                <h4>NVIDIA, AMD &amp; Intel Acceleration</h4>
-                <p>Specialized hardware consulting to optimize tokens/second and slash GPU compute costs by up to 50%.</p>
-              </div>
-            </div>
-
-            <div className="direct-channels-box">
-              <span className="direct-channels-title">DIRECT ARCHITECT CHANNELS:</span>
-              <div className="channel-link">
-                <Mail size={16} className="text-cyan" />
-                <a href="mailto:consulting@kahn.cloud">consulting@kahn.cloud</a>
-              </div>
-              <div className="channel-link">
-                <MessageSquare size={16} className="text-emerald" />
-                <span>Telegram: @kahn_consulting</span>
-              </div>
+            <div className="direct-contact-block">
+              <span className="direct-label">Direct Security Desk:</span>
+              <a href="mailto:security@kahn.cloud" className="direct-link">security@kahn.cloud</a>
+              <span className="direct-channel">Telegram: @kahn_security</span>
             </div>
           </div>
 
-          <div className="contact-form-panel glass-panel">
+          <div className="contact-form-card">
             {submitted ? (
               <div className="form-success-state">
-                <div className="success-icon-wrap">
-                  <CheckCircle2 size={48} className="text-emerald" />
-                </div>
-                <h3>Consultation Request Received!</h3>
-                <p>
-                  Thank you, <strong>{formData.name}</strong>. Our Principal Cloud &amp; AI Architect will review your requirements for <strong>{formData.company || 'your project'}</strong> and follow up at <strong>{formData.email}</strong> within 2 business hours.
+                <CheckCircle2 size={48} className="text-success" />
+                <h3 className="success-title">Assessment Request Received</h3>
+                <p className="success-desc">
+                  Our Lead Security Architect will review your scope and deliver our mutual NDA within 2 business hours.
                 </p>
-                <div className="success-action">
-                  <button 
-                    type="button" 
-                    className="btn btn-secondary" 
-                    onClick={() => setSubmitted(false)}
-                  >
-                    Submit Another Request
-                  </button>
-                </div>
               </div>
             ) : (
-              <form className="consultation-form" onSubmit={handleSubmit}>
-                <div className="form-row-2">
+              <form onSubmit={handleSubmit} className="consulting-form">
+                <div className="form-group">
+                  <label htmlFor="company">Company / Organization Name *</label>
+                  <input
+                    type="text"
+                    id="company"
+                    required
+                    placeholder="e.g. Acme FinTech Corp"
+                    value={formData.company}
+                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                  />
+                </div>
+
+                <div className="form-row">
                   <div className="form-group">
-                    <label>Full Name *</label>
+                    <label htmlFor="name">Your Name & Role *</label>
                     <input
                       type="text"
-                      className="form-input"
-                      placeholder="e.g. Alex Nguyen"
+                      id="name"
+                      required
+                      placeholder="e.g. Alex Rivera, Head of Infrastructure"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      required
                     />
                   </div>
+
                   <div className="form-group">
-                    <label>Work Email *</label>
+                    <label htmlFor="email">Work Email *</label>
                     <input
                       type="email"
-                      className="form-input"
-                      placeholder="alex@company.com"
+                      id="email"
+                      required
+                      placeholder="alex@acmefintech.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      required
                     />
                   </div>
                 </div>
 
-                <div className="form-row-2">
+                <div className="form-row">
                   <div className="form-group">
-                    <label>Company / Project Name</label>
-                    <input
-                      type="text"
-                      className="form-input"
-                      placeholder="e.g. TechCorp Inc"
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    />
-                  </div>
-                  <div className="form-group">
-                    <label>Project Scope Tier *</label>
+                    <label htmlFor="scopeType">Primary Security Engagement *</label>
                     <select
-                      className="form-select"
-                      value={formData.scopePlan}
-                      onChange={(e) => setFormData({ ...formData, scopePlan: e.target.value })}
+                      id="scopeType"
+                      value={formData.scopeType}
+                      onChange={(e) => setFormData({ ...formData, scopeType: e.target.value })}
                     >
-                      <option value="ai-gpu">Private AI / LLM &amp; GPU Infrastructure (NVIDIA, AMD, Intel)</option>
-                      <option value="k8s">Cloud-Native Kubernetes &amp; Scale (2-4 Weeks)</option>
-                      <option value="monolith">Monolith &amp; Backend API (1-2 Weeks)</option>
-                      <option value="landing">Starter / Landing Page (2-3 Days)</option>
-                      <option value="multicloud">Enterprise Multi-Cloud &amp; FinOps</option>
-                      <option value="maintenance">Dedicated 24/7 SRE Maintenance Only</option>
+                      <option value="Automated Cloud Resource Audit">Automated Cloud Resource Audit (Free Scan)</option>
+                      <option value="Full-Scope Cloud Penetration Testing">Full-Scope Cloud Penetration Testing</option>
+                      <option value="Kubernetes & Container Hardening">Kubernetes & Container Hardening Audit</option>
+                      <option value="Continuous CSPM & SOC2 Compliance">Continuous CSPM & SOC 2 Readiness</option>
+                      <option value="Emergency Incident / Leak Review">Emergency Vulnerability / Leak Review</option>
                     </select>
                   </div>
-                </div>
 
-                <div className="form-row-2">
                   <div className="form-group">
-                    <label>Hardware / Cloud Platform</label>
+                    <label htmlFor="cloudCount">Cloud Infrastructure Scale</label>
                     <select
-                      className="form-select"
-                      value={formData.cloud}
-                      onChange={(e) => setFormData({ ...formData, cloud: e.target.value })}
+                      id="cloudCount"
+                      value={formData.cloudCount}
+                      onChange={(e) => setFormData({ ...formData, cloudCount: e.target.value })}
                     >
-                      <option value="nvidia">NVIDIA GPU (CUDA / H100 / L40S / A100)</option>
-                      <option value="amd">AMD Instinct (ROCm 6.x / MI300X)</option>
-                      <option value="intel">Intel Gaudi 2/3 / OpenVINO</option>
-                      <option value="aws">Amazon Web Services (AWS)</option>
-                      <option value="gcp">Google Cloud Platform (GCP)</option>
-                      <option value="azure">Microsoft Azure</option>
-                      <option value="baremetal">On-Premises Bare-Metal GPU</option>
-                      <option value="undecided">Need Recommendation from Architect</option>
-                    </select>
-                  </div>
-                  <div className="form-group">
-                    <label>Desired Timeline</label>
-                    <select
-                      className="form-select"
-                      value={formData.timeline}
-                      onChange={(e) => setFormData({ ...formData, timeline: e.target.value })}
-                    >
-                      <option value="asap">Urgent (Immediate kickoff)</option>
-                      <option value="2weeks">Within 1 - 2 weeks</option>
-                      <option value="1month">Within next month</option>
-                      <option value="exploring">Just exploring options / feasibility</option>
+                      <option value="1 - 5 Accounts">1 - 5 Accounts (Startup / MVP)</option>
+                      <option value="5 - 20 Accounts">5 - 20 Accounts (Growth Stage)</option>
+                      <option value="20+ Accounts">20+ Accounts (Enterprise Fleet)</option>
                     </select>
                   </div>
                 </div>
 
                 <div className="form-group">
-                  <label>Project Requirements &amp; Stack</label>
+                  <label htmlFor="message">Key Security Concerns or Cloud Providers</label>
                   <textarea
-                    className="form-textarea"
-                    rows="4"
-                    placeholder="Describe your current infrastructure or AI model goals (e.g. self-hosting Llama-3 on NVIDIA H100 / AMD MI300X, private RAG pipeline, CI/CD pipeline overhaul, slow deployments, or 24/7 SRE on-call needs)..."
+                    id="message"
+                    rows="3"
+                    placeholder="Describe your current cloud setup (AWS, GCP, Azure, K8s) and any specific concerns or upcoming compliance deadlines..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  ></textarea>
+                  />
                 </div>
 
-                <button type="submit" className="btn btn-primary w-full btn-lg">
-                  <Send size={18} />
-                  <span>Book Architecture Review</span>
+                <button type="submit" className="btn btn-primary w-full">
+                  <Send size={16} />
+                  <span>Submit Confidential Assessment Request</span>
                 </button>
               </form>
             )}

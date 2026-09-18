@@ -1,90 +1,52 @@
-import { useState, useEffect } from 'react'
-import { Terminal, Menu, X, PhoneCall } from 'lucide-react'
+import { useState } from 'react'
+import { Terminal, Shield, Menu, X } from 'lucide-react'
 
 export default function Navbar({ onOpenTerminal }) {
-  const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
   return (
-    <header className={`navbar-wrapper ${scrolled ? 'scrolled' : ''}`}>
-      <div className="container nav-container">
-        <a href="#" className="nav-brand">
+    <header className="navbar-header">
+      <div className="container navbar-container">
+        <a href="#" className="navbar-brand">
           <div className="brand-logo-icon">
-            <Terminal size={20} className="icon-brand" />
+            <Shield size={18} className="text-primary" />
           </div>
-          <div className="brand-text-group">
-            <span className="brand-name">
-              Kahn<span className="brand-dot">.</span>
-            </span>
-            <span className="brand-tag">Cloud Bastion</span>
-          </div>
+          <span className="brand-name">
+            Kahn<span className="brand-dot">.</span>
+          </span>
+          <span className="brand-subtag">SECURITY & AUDIT</span>
         </a>
 
-        <nav className="nav-links desktop-only">
-          <a href="#plans" className="nav-link">Delivery Plans</a>
-          <a href="#services" className="nav-link">Services</a>
-          <a href="#maintenance" className="nav-link">24/7 SRE</a>
-          <a href="#estimator" className="nav-link">Scope Estimator</a>
-          <a href="#faq" className="nav-link">FAQ</a>
+        <nav className={`navbar-nav ${mobileMenuOpen ? 'mobile-open' : ''}`}>
+          <a href="#solutions" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Solutions</a>
+          <a href="#services" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Services</a>
+          <a href="#scanner" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Live Inspector</a>
+          <a href="#estimator" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Scope Estimator</a>
+          <a href="#faq" className="nav-link" onClick={() => setMobileMenuOpen(false)}>FAQ</a>
         </nav>
 
-        <div className="nav-actions desktop-only">
+        <div className="navbar-actions">
           <button 
-            onClick={onOpenTerminal} 
-            className="btn-nav-terminal"
-            title="Launch Cloud Bastion Terminal"
+            className="btn btn-outline terminal-nav-btn"
+            onClick={onOpenTerminal}
+            aria-label="Open Cloud Bastion Terminal"
           >
-            <span className="live-ping-dot"></span>
             <Terminal size={15} />
             <span>Cloud Bastion</span>
           </button>
-          <a href="#contact" className="btn btn-sm btn-primary nav-btn-cta">
-            <PhoneCall size={14} />
-            <span>Book Consultation</span>
+          <a href="#contact" className="btn btn-primary">
+            <span>Request Audit</span>
           </a>
-        </div>
 
-        <button 
-          className="mobile-toggle mobile-only" 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle navigation"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {mobileMenuOpen && (
-        <div className="mobile-menu-drawer">
           <button 
-            onClick={() => { setMobileMenuOpen(false); onOpenTerminal && onOpenTerminal(); }} 
-            className="btn-nav-terminal w-full"
-            style={{ marginBottom: '12px' }}
+            className="mobile-toggle-btn"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Menu"
           >
-            <span className="live-ping-dot"></span>
-            <Terminal size={16} />
-            <span>Open Cloud Bastion Terminal</span>
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
-          <a href="#plans" onClick={() => setMobileMenuOpen(false)}>Delivery Plans</a>
-          <a href="#services" onClick={() => setMobileMenuOpen(false)}>Services</a>
-          <a href="#maintenance" onClick={() => setMobileMenuOpen(false)}>24/7 SRE Support</a>
-          <a href="#estimator" onClick={() => setMobileMenuOpen(false)}>Scope Estimator</a>
-          <a href="#faq" onClick={() => setMobileMenuOpen(false)}>FAQ</a>
-          <div className="mobile-drawer-actions">
-            <a href="#contact" className="btn btn-primary w-full" onClick={() => setMobileMenuOpen(false)}>
-              <PhoneCall size={15} />
-              <span>Book Consultation</span>
-            </a>
-          </div>
         </div>
-      )}
+      </div>
     </header>
   )
 }

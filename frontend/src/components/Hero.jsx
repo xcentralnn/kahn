@@ -2,207 +2,191 @@ import { useState } from 'react'
 import { 
   ArrowRight, 
   CheckCircle2, 
-  Server, 
-  Layers, 
-  GitBranch, 
-  Cloud, 
-  Clock,
-  Cpu,
-  Database,
-  Award
+  ShieldCheck, 
+  Terminal, 
+  Lock, 
+  AlertTriangle, 
+  Flame,
+  Search,
+  FileCheck,
+  Zap
 } from 'lucide-react'
 
-export default function Hero() {
-  const [selectedPlan, setSelectedPlan] = useState('gpu')
+export default function Hero({ onOpenTerminal }) {
+  const [activeTab, setActiveTab] = useState('iam')
 
-  const planBlueprints = {
-    landing: {
-      name: 'Starter / Landing Page',
-      delivery: '2 - 3 Days',
-      stack: 'S3 + CloudFront + Cloudflare WAF + SSL',
-      pipeline: 'Git Push to Global Edge CDN',
-      highlight: 'Sub-40ms global TTFB, DDoS protection, zero server maintenance.',
-      nodes: [
-        { name: 'Git Commit', role: 'Main push', type: 'git' },
-        { name: 'CI/CD Gating', role: 'Lint & build', type: 'ci' },
-        { name: 'CloudFront CDN', role: '300+ Edge POPs', type: 'cloud' },
-        { name: 'S3 Origin', role: 'Static assets', type: 'storage' },
+  const auditSimulations = {
+    iam: {
+      name: 'IAM Entitlement & Escalation Graph',
+      severity: 'CRITICAL RISK',
+      summary: 'Detected 14 over-privileged service accounts with PassRole escalation to AdministratorAccess.',
+      target: 'AWS IAM / GCP Cloud IAM',
+      findings: [
+        { label: 'iam:PassRole + ec2:RunInstances shadow admin path', status: 'CRITICAL', color: '#f43f5e' },
+        { label: 'Exposed static service account access key (> 180 days)', status: 'HIGH', color: '#f97316' },
+        { label: 'Wildcard Action * on Production DynamoDB & S3', status: 'HIGH', color: '#f97316' },
       ],
+      remediation: 'terraform-remediation-pr-104.tf (Applied in 1-Click)',
     },
-    monolith: {
-      name: 'Fullstack Monolith & API',
-      delivery: '1 - 2 Weeks',
-      stack: 'AWS ECS Fargate / VPS + RDS PostgreSQL + Redis',
-      pipeline: 'Docker Multi-Stage Build + Automated DB Migrations',
-      highlight: 'High availability with automated database backups and zero-downtime deploys.',
-      nodes: [
-        { name: 'ALB Gateway', role: 'WAF & TLS', type: 'cloud' },
-        { name: 'ECS Tasks', role: 'Auto-healing containers', type: 'compute' },
-        { name: 'RDS Multi-AZ', role: 'Postgres / MySQL', type: 'storage' },
-        { name: 'Redis Cache', role: 'Fast cache & queue', type: 'cache' },
+    posture: {
+      name: 'Cloud Resource & Cost Drift Audit',
+      severity: 'HIGH RISK & $8.4K/MO WASTE',
+      summary: 'Identified 3 public S3 buckets, 8 unencrypted RDS instances, and 4 idle p4d GPU instances.',
+      target: 'Multi-Cloud Asset Fleet',
+      findings: [
+        { label: 'Public readable S3 bucket: customer-invoices-backup', status: 'CRITICAL', color: '#f43f5e' },
+        { label: 'Zombie 8x H100 GPU instance running idle ($8,420/mo)', status: 'FINOPS', color: '#38bdf8' },
+        { label: 'Security Group 0.0.0.0/0 exposed to SSH port 22', status: 'HIGH', color: '#f97316' },
       ],
+      remediation: 'Auto-isolate SG & trigger Spot auto-shutdown',
     },
     k8s: {
-      name: 'Cloud-Native Kubernetes',
-      delivery: '2 - 4 Weeks',
-      stack: 'AWS EKS / GCP GKE + ArgoCD GitOps + Helm + Prometheus',
-      pipeline: 'GitLab / Bitbucket / GitHub to ArgoCD Canary Sync',
-      highlight: 'Auto-scaling cluster with Karpenter, cert-manager, and Grafana observability.',
-      nodes: [
-        { name: 'Ingress Controller', role: 'Auto SSL certs', type: 'cloud' },
-        { name: 'K8s Worker Nodes', role: 'Spot + On-Demand', type: 'compute' },
-        { name: 'ArgoCD GitOps', role: 'Declarative sync', type: 'ci' },
-        { name: 'Monitoring Stack', role: 'Prometheus & Grafana', type: 'monitor' },
+      name: 'Kubernetes Cluster & Container Escapes',
+      severity: 'CRITICAL VULNERABILITY',
+      summary: 'Privileged pod running with hostPath mount and hostPID access allowed root host takeover.',
+      target: 'Amazon EKS / Google GKE Cluster',
+      findings: [
+        { label: 'HostPID=true & SYS_ADMIN capability container', status: 'CRITICAL', color: '#f43f5e' },
+        { label: 'ClusterRoleBinding giving system:anonymous cluster-admin', status: 'CRITICAL', color: '#f43f5e' },
+        { label: 'Missing NetworkPolicy allowing cross-namespace traffic', status: 'MEDIUM', color: '#eab308' },
       ],
+      remediation: 'Kyverno / OPA Gatekeeper constraint enforced',
     },
-    gpu: {
-      name: 'Private AI / LLM & GPU Fleet',
-      delivery: '1 - 3 Weeks',
-      stack: 'NVIDIA (H100/L40S) + AMD (MI300X) + Intel Gaudi + vLLM / Triton',
-      pipeline: 'AWQ / FP8 Quantization + Private RAG + High-Throughput API',
-      highlight: 'Sub-30ms first token, complete data privacy, cloud or on-prem GPU orchestration.',
-      nodes: [
-        { name: 'AI API Gateway', role: 'LiteLLM + Cache', type: 'cloud' },
-        { name: 'GPU Cluster', role: 'NVIDIA / AMD / Intel', type: 'compute' },
-        { name: 'vLLM Engine', role: 'PagedAttention', type: 'ci' },
-        { name: 'Vector Database', role: 'Qdrant / Milvus', type: 'storage' },
+    pentest: {
+      name: 'Offensive Cloud Pentest & IMDS SSRF',
+      severity: 'EXPLOITED IN SIMULATION',
+      summary: 'Web application SSRF weaponized to extract AWS IMDSv1 temporary STS credentials.',
+      target: 'Production API & Cloud Metadata',
+      findings: [
+        { label: 'IMDSv1 enabled: STS role credentials harvested', status: 'EXPLOITED', color: '#f43f5e' },
+        { label: 'S3 exfiltration via compromised ec2-instance profile', status: 'CONFIRMED', color: '#f43f5e' },
+        { label: 'Enforce IMDSv2 HopLimit=1 & strict session token', status: 'REMEDIATED', color: '#22c55e' },
       ],
-    },
-    multicloud: {
-      name: 'Enterprise Multi-Cloud & FinOps',
-      delivery: 'Custom Sprints',
-      stack: 'AWS + Azure + GCP Mesh + Terraform IaC',
-      pipeline: 'Cross-cloud CI/CD with Disaster Recovery drills',
-      highlight: 'Zero single-cloud risk, active-active failover, and -40% cloud cost reduction.',
-      nodes: [
-        { name: 'Global Traffic Mgr', role: 'Latency routing', type: 'cloud' },
-        { name: 'AWS Primary Region', role: 'Core compute', type: 'compute' },
-        { name: 'Azure / GCP Backup', role: 'Warm standby', type: 'compute' },
-        { name: 'FinOps Engine', role: 'Spot arbitrage', type: 'finops' },
-      ],
+      remediation: 'Enforce IMDSv2 HopLimit=1 across all EC2/GCE templates',
     },
   }
 
-  const current = planBlueprints[selectedPlan]
+  const current = auditSimulations[activeTab]
 
   return (
     <section className="hero-section">
-      <div className="container hero-container">
-        <div className="hero-content">
-          <div className="badge hero-badge">
-            <Award size={14} className="text-cyan" />
-            <span>Official Cloud, AI &amp; CNCF Partner</span>
-          </div>
+      <div className="container">
+        <div className="hero-grid">
+          <div className="hero-content">
+            <div className="badge">
+              <ShieldCheck size={14} className="text-primary" />
+              <span>KAHN CLOUD SECURITY & AUDITING PLATFORM</span>
+            </div>
 
-          <h1 className="hero-title">
-            Architect, Deploy &amp; Scale <span className="accent">Cloud &amp; AI Infrastructure</span>
-          </h1>
+            <h1 className="hero-title">
+              Automated Cloud Resource Audit & <span className="accent">Enterprise Pentest</span>
+            </h1>
 
-          <p className="hero-description">
-            End-to-end DevOps, GPU acceleration, and cloud delivery consulting. From landing pages and monoliths to multi-cloud Kubernetes fleets with 24/7 SRE support.
-          </p>
+            <p className="hero-desc">
+              Continuous agentless posture audits across AWS, GCP, Azure & Kubernetes. Uncover over-privileged IAM paths, misconfigured resources, and compliance drift before adversaries strike.
+            </p>
 
-          <div className="hero-actions">
-            <a href="#plans" className="btn btn-lg btn-primary">
-              <span>Delivery Plans</span>
-              <ArrowRight size={18} />
-            </a>
-            <a href="#contact" className="btn btn-lg btn-secondary">
-              <span>Book Consultation</span>
-            </a>
-          </div>
-
-          <div className="hero-partner-chips">
-            <span className="partner-badge-pill">AWS Partner</span>
-            <span className="partner-badge-pill">Microsoft Azure</span>
-            <span className="partner-badge-pill">Google Cloud</span>
-            <span className="partner-badge-pill">NVIDIA Partner</span>
-            <span className="partner-badge-pill">CNCF KCSP</span>
-          </div>
-        </div>
-
-        <div className="hero-preview-wrapper" id="blueprint-preview">
-          <div className="console-card glass-panel">
-            <div className="console-header">
-              <div className="window-dots">
-                <span className="dot dot-red"></span>
-                <span className="dot dot-yellow"></span>
-                <span className="dot dot-green"></span>
+            <div className="hero-metrics-chips">
+              <div className="metric-chip">
+                <span className="metric-val">15 Min</span>
+                <span className="metric-label">Agentless Scan</span>
               </div>
-              <div className="console-tab-bar">
-                <button 
-                  className={`console-tab-btn ${selectedPlan === 'gpu' ? 'active' : ''}`}
-                  onClick={() => setSelectedPlan('gpu')}
-                >
-                  <Cpu size={14} />
-                  <span>AI &amp; GPU Fleet</span>
-                </button>
-                <button 
-                  className={`console-tab-btn ${selectedPlan === 'k8s' ? 'active' : ''}`}
-                  onClick={() => setSelectedPlan('k8s')}
-                >
-                  <Layers size={14} />
-                  <span>Kubernetes</span>
-                </button>
-                <button 
-                  className={`console-tab-btn ${selectedPlan === 'monolith' ? 'active' : ''}`}
-                  onClick={() => setSelectedPlan('monolith')}
-                >
-                  <Database size={14} />
-                  <span>Monolith / API</span>
-                </button>
-                <button 
-                  className={`console-tab-btn ${selectedPlan === 'multicloud' ? 'active' : ''}`}
-                  onClick={() => setSelectedPlan('multicloud')}
-                >
-                  <Cloud size={14} />
-                  <span>Multi-Cloud</span>
-                </button>
-                <button 
-                  className={`console-tab-btn ${selectedPlan === 'landing' ? 'active' : ''}`}
-                  onClick={() => setSelectedPlan('landing')}
-                >
-                  <Server size={14} />
-                  <span>Landing Page</span>
-                </button>
+              <div className="metric-chip">
+                <span className="metric-val">100%</span>
+                <span className="metric-label">Read-Only Safe</span>
               </div>
-              <div className="console-status-pill">
-                <Clock size={12} />
-                <span>Delivery: {current.delivery}</span>
+              <div className="metric-chip">
+                <span className="metric-val">CIS & SOC 2</span>
+                <span className="metric-label">Compliance Mapped</span>
+              </div>
+              <div className="metric-chip">
+                <span className="metric-val">OSCP/CRTE</span>
+                <span className="metric-label">Certified Pentest</span>
               </div>
             </div>
 
-            <div className="console-body">
-              <div className="blueprint-meta-strip">
-                <div>
-                  <span className="blueprint-label">Target Architecture</span>
-                  <h3 className="blueprint-title">{current.name}</h3>
+            <div className="hero-actions">
+              <a href="#contact" className="btn btn-primary">
+                <span>Request Free Cloud Audit</span>
+                <ArrowRight size={16} />
+              </a>
+              <button 
+                className="btn btn-outline terminal-trigger-btn"
+                onClick={onOpenTerminal}
+              >
+                <Terminal size={16} className="text-primary" />
+                <span>Launch Cloud Bastion</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="hero-blueprint-card">
+            <div className="blueprint-header">
+              <div className="blueprint-title-row">
+                <div className="blueprint-dots">
+                  <span className="dot dot-red"></span>
+                  <span className="dot dot-yellow"></span>
+                  <span className="dot dot-green"></span>
                 </div>
-                <div className="blueprint-stack-box">
-                  <span className="blueprint-label">Stack</span>
-                  <span className="blueprint-stack-val">{current.stack}</span>
+                <span className="blueprint-title">KAHN AUDIT ENGINE — LIVE INSPECTOR</span>
+              </div>
+
+              <div className="plan-tabs">
+                <button 
+                  className={`plan-tab-btn ${activeTab === 'iam' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('iam')}
+                >
+                  IAM Graph
+                </button>
+                <button 
+                  className={`plan-tab-btn ${activeTab === 'posture' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('posture')}
+                >
+                  Resource Drift
+                </button>
+                <button 
+                  className={`plan-tab-btn ${activeTab === 'k8s' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('k8s')}
+                >
+                  Kubernetes
+                </button>
+                <button 
+                  className={`plan-tab-btn ${activeTab === 'pentest' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('pentest')}
+                >
+                  Pentest PoC
+                </button>
+              </div>
+            </div>
+
+            <div className="blueprint-body">
+              <div className="blueprint-meta-bar">
+                <div className="meta-left">
+                  <span className="meta-badge-target">{current.target}</span>
+                  <h4 className="meta-plan-name">{current.name}</h4>
+                </div>
+                <div className="meta-right">
+                  <span className="meta-severity-pill">{current.severity}</span>
                 </div>
               </div>
 
-              <div className="blueprint-nodes-row">
-                {current.nodes.map((node, nIdx) => (
-                  <div key={nIdx} className="blueprint-node-box">
-                    <div className="node-box-top">
-                      <span className="node-step-tag">0{nIdx + 1}</span>
-                      <span className={`node-type-pill type-${node.type}`}>{node.type}</span>
-                    </div>
-                    <h4>{node.name}</h4>
-                    <p>{node.role}</p>
+              <p className="blueprint-summary">{current.summary}</p>
+
+              <div className="audit-findings-list">
+                {current.findings.map((f, i) => (
+                  <div key={i} className="finding-item">
+                    <AlertTriangle size={15} style={{ color: f.color }} />
+                    <span className="finding-label">{f.label}</span>
+                    <span className="finding-badge" style={{ borderColor: f.color, color: f.color }}>
+                      {f.status}
+                    </span>
                   </div>
                 ))}
               </div>
 
-              <div className="blueprint-bottom-summary">
-                <div className="blueprint-pipeline-info">
-                  <GitBranch size={15} className="text-cyan" />
-                  <span><strong>Pipeline:</strong> {current.pipeline}</span>
-                </div>
-                <p className="blueprint-highlight-text">{current.highlight}</p>
+              <div className="remediation-bar">
+                <CheckCircle2 size={15} className="text-success" />
+                <span className="remediation-text">{current.remediation}</span>
               </div>
             </div>
           </div>

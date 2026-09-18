@@ -6,28 +6,28 @@ export default function FAQ() {
 
   const faqs = [
     {
-      q: 'How does the delivery handover work? Do we own the code and architecture?',
-      a: 'You own 100% of all intellectual property, Git repositories, and cloud resources. Every engagement delivers clean, declarative Terraform or OpenTofu modules, clear architectural documentation, and a recorded handover session with your development team. Zero proprietary black boxes.',
+      q: 'How does the automated cloud resource audit work without deploying agents?',
+      a: 'Our audit platform connects via standard native cloud IAM roles (such as AWS SecurityAudit or Google Cloud Security Reviewer) using read-only metadata APIs. No software agents, daemonsets, or sidecars are installed on your production servers, guaranteeing zero performance impact and zero workload disruption.',
     },
     {
-      q: 'Can you deliver small, fast-turnaround projects like landing pages or MVPs?',
-      a: 'Yes. Our Starter Launchpad package is specifically built for marketing landing pages, JAMstack apps, and micro-services. We deliver production-grade global CDN caching, SSL certificates, custom DNS, and automated GitHub/Bitbucket CI/CD within 2 to 3 business days.',
+      q: 'What is the difference between automated scanning and deep penetration testing?',
+      a: 'Automated scanning continuously audits cloud configurations, IAM drift, and resource waste against benchmarks. Penetration testing is an offensive, human-led assessment by certified security specialists (OSCP, CRTE) who chain multiple low-risk misconfigurations together to prove real exploit paths, such as SSRF metadata theft or lateral privilege escalation.',
     },
     {
-      q: 'How does your 24/7 SRE On-Call and ongoing maintenance work?',
-      a: 'We connect directly into your monitoring tools (Datadog, Prometheus, CloudWatch) and alerting channels (Slack, PagerDuty). When an anomaly or outage occurs, our on-call engineers respond within our guaranteed sub-15 minute P1 SLA to stabilize workloads and resolve root causes.',
+      q: 'Can the security assessment cause downtime or interrupt production traffic?',
+      a: 'Never. Our automated resource audit is strictly read-only. For offensive cloud penetration testing, all activities adhere to agreed Rules of Engagement (RoE). Offensive testing is performed with rate-limiting, and any destructive exploits or denial-of-service simulations are strictly prohibited unless authorized in a designated sandbox.',
     },
     {
-      q: 'Which CI/CD engines and cloud platforms do you support?',
-      a: 'We have production expertise across Amazon Web Services (AWS), Google Cloud (GCP), Microsoft Azure, and bare-metal Kubernetes. For CI/CD, we natively support Bitbucket Pipelines, GitHub Actions, GitLab CI, ArgoCD GitOps, and Jenkins.',
+      q: 'How do you handle confidentiality and sensitive architectural data?',
+      a: 'We sign bilateral Non-Disclosure Agreements (NDAs) before any credentials or architecture diagrams are shared. All vulnerability reports, scan artifacts, and proof-of-concept scripts are encrypted in transit and at rest, and purged following project completion and formal handover.',
     },
     {
-      q: 'Can you help us migrate our existing monolith to Kubernetes or microservices?',
-      a: 'Yes. We specialize in zero-downtime migrations. We containerize your application, architect production EKS or GKE clusters with Helm and ArgoCD, establish synchronized database replication, and perform cutovers without dropping a single user session.',
+      q: 'What deliverables do our executive and engineering teams receive?',
+      a: 'You receive: (1) An Executive Summary with overall cloud security score and business risk breakdown; (2) Detailed technical vulnerability documentation with CVSS v3.1 scores and PoC exploit steps; (3) Production-ready Terraform / OpenTofu remediation pull requests; and (4) A 60-minute live debrief session with our lead architects.',
     },
     {
-      q: 'How does your FinOps cloud cost optimization guarantee savings?',
-      a: 'We audit your infrastructure to identify over-provisioned CPU/RAM, unattached storage volumes, expensive cross-AZ network traffic, and on-demand compute. By implementing automated Spot fleet orchestration and right-sizing, we routinely slash AWS/GCP bills by 30% to 45%.',
+      q: 'How does Kahn help us achieve SOC 2 Type II or ISO 27001 compliance?',
+      a: 'Our continuous posture management (CSPM) automatically maps your cloud controls directly to SOC 2, ISO 27001, and CIS Benchmark requirements. We generate audit-ready evidence exports, eliminating manual screenshot collection and spreadsheet tracking for external auditors.',
     },
   ]
 
@@ -41,39 +41,34 @@ export default function FAQ() {
         <div className="section-header">
           <div className="badge">
             <HelpCircle size={14} className="text-primary" />
-            <span>Consulting FAQ</span>
+            <span>Audit & Security FAQ</span>
           </div>
           <h2 className="section-title">
-            Answers to Common <span className="accent">Delivery Questions</span>
+            Answers to Common <span className="accent">Security Questions</span>
           </h2>
           <p className="section-subtitle">
-            Everything you need to know about our engagement models, delivery handoffs, and 24/7 SRE coverage.
+            Everything you need to know about our read-only audit methodology, pentest Rules of Engagement, and compliance guarantees.
           </p>
         </div>
 
-        <div className="faq-accordion-list">
-          {faqs.map((item, idx) => {
-            const isOpen = openIdx === idx
-            return (
-              <div 
-                key={idx} 
-                className={`faq-item glass-panel ${isOpen ? 'open' : ''}`}
-                onClick={() => toggle(idx)}
-              >
-                <div className="faq-question">
-                  <h4>{item.q}</h4>
-                  <div className={`faq-icon ${isOpen ? 'rotated' : ''}`}>
-                    <ChevronDown size={18} />
-                  </div>
-                </div>
-                {isOpen && (
-                  <div className="faq-answer">
-                    <p>{item.a}</p>
-                  </div>
-                )}
+        <div className="faq-accordion">
+          {faqs.map((f, idx) => (
+            <div 
+              key={idx} 
+              className={`faq-item ${openIdx === idx ? 'open' : ''}`}
+              onClick={() => toggle(idx)}
+            >
+              <div className="faq-question-row">
+                <span className="faq-q-text">{f.q}</span>
+                <ChevronDown size={18} className={`faq-chevron ${openIdx === idx ? 'rotate' : ''}`} />
               </div>
-            )
-          })}
+              {openIdx === idx && (
+                <div className="faq-answer">
+                  <p>{f.a}</p>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </section>

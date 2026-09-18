@@ -3,11 +3,10 @@ import PageLoader from './components/PageLoader'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import PartnerBanner from './components/PartnerBanner'
-import DeliveryPlans from './components/DeliveryPlans'
+import AuditPentestSolutions from './components/AuditPentestSolutions'
 import ServicesScope from './components/ServicesScope'
-import MaintenanceSupport from './components/MaintenanceSupport'
+import CloudAuditScanner from './components/CloudAuditScanner'
 import ProjectEstimator from './components/ProjectEstimator'
-import HardwareFleet from './components/HardwareFleet'
 import ContactConsulting from './components/ContactConsulting'
 import FAQ from './components/FAQ'
 import Footer from './components/Footer'
@@ -25,11 +24,10 @@ export default function App() {
       <main>
         <Hero onOpenTerminal={() => setIsTerminalOpen(true)} />
         <PartnerBanner />
-        <DeliveryPlans />
+        <AuditPentestSolutions onSelectScope={(scope) => setSelectedScope(scope)} />
         <ServicesScope />
-        <MaintenanceSupport />
+        <CloudAuditScanner />
         <ProjectEstimator onSelectScope={(scope) => setSelectedScope(scope)} />
-        <HardwareFleet />
         <ContactConsulting prefilledScope={selectedScope} />
         <FAQ />
       </main>

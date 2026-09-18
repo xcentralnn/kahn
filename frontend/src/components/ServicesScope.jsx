@@ -1,121 +1,120 @@
 import { 
-  GitMerge, 
-  FileCode, 
-  CloudSun, 
-  TrendingDown, 
-  ShieldAlert, 
-  Cpu, 
-  CheckCircle2,
-  Terminal
+  KeyRound, 
+  DollarSign, 
+  Layers, 
+  Flame, 
+  GitBranch, 
+  FileCheck2,
+  CheckCircle2
 } from 'lucide-react'
 
 export default function ServicesScope() {
   const services = [
     {
-      icon: Cpu,
-      title: 'GPU & Self-Hosted AI/LLM',
-      tag: 'NVIDIA • AMD • Intel',
-      description: 'Deploy private LLMs and vision models with high-throughput inference engines and zero API token leakage.',
+      icon: KeyRound,
+      title: 'Cloud IAM & Entitlement Review (CIEM)',
+      tag: 'Least Privilege • Zero Trust',
+      description: 'Audit complex IAM relationship trees, cross-account assume-roles, and shadow admin escalation vectors across AWS, GCP, and Azure.',
       bullets: [
-        'NVIDIA (H100/A100/L40S, CUDA, TensorRT-LLM, vLLM)',
-        'AMD Instinct (MI300X, ROCm 6.x) & Intel Gaudi',
-        'Private RAG (Qdrant, Milvus) & LiteLLM Gateway',
+        'Toxic permission combo detection (iam:PassRole, sts:AssumeRole)',
+        'Unused & over-privileged service account credential pruning',
+        'Automated least-privilege policy generation via CloudTrail analysis',
       ],
     },
     {
-      icon: GitMerge,
-      title: 'End-to-End CI/CD Pipelines',
-      tag: 'Speed & Reliability',
-      description: 'Bulletproof delivery pipelines with automated testing, container security scanning, and instant rollback.',
+      icon: DollarSign,
+      title: 'Multi-Cloud Asset & Cost Drift Audit',
+      tag: 'FinOps & Security Fusion',
+      description: 'Discover forgotten shadow assets, open security groups, and zombie GPU/compute instances draining your monthly cloud budget.',
       bullets: [
-        'Bitbucket Pipelines, GitHub Actions, GitLab CI & ArgoCD',
-        'Vulnerability scanning with Trivy & Snyk gates',
-        'Zero-downtime Blue/Green & Canary deployments',
+        'Zombie compute, unattached EBS volumes & idle GPU detection',
+        'Exposed S3/GCS buckets, public RDS instances & 0.0.0.0/0 ports',
+        'Instant cost leakage report with guaranteed cloud bill savings',
       ],
     },
     {
-      icon: FileCode,
-      title: 'Infrastructure as Code (IaC)',
-      tag: '100% Declarative',
-      description: 'All VPCs, clusters, databases, and IAM permissions codified in clean, modular Terraform or OpenTofu.',
+      icon: Layers,
+      title: 'Kubernetes & Container Security Posture',
+      tag: 'EKS • GKE • AKS • Bare-Metal',
+      description: 'Harden Kubernetes clusters against container breakouts, privileged daemonsets, and vulnerable admission controllers.',
       bullets: [
-        'Terraform, Terragrunt, OpenTofu & Ansible',
-        'Secure remote state in S3 & DynamoDB locks',
-        'Complete architectural diagrams & documentation',
+        'CIS Kubernetes Benchmark automated conformance testing',
+        'RBAC privilege auditing, cluster-admin role restriction',
+        'Admission controller policies via Kyverno & OPA Gatekeeper',
       ],
     },
     {
-      icon: CloudSun,
-      title: 'Multi-Cloud & Hybrid Mesh',
-      tag: 'High Availability',
-      description: 'Active-active or active-passive disaster recovery across AWS, Google Cloud, Azure, and bare-metal.',
+      icon: Flame,
+      title: 'Full-Scope Cloud Penetration Testing',
+      tag: 'Certified Offensive Red Team',
+      description: 'Rigorous manual and automated offensive testing exploiting real-world cloud attack vectors without risking service availability.',
       bullets: [
-        'AWS, GCP, Azure & Bare-metal Kubernetes',
-        'Cross-cloud low-latency DNS traffic routing',
-        'Automated disaster recovery failover runbooks',
+        'SSRF attacks targeting IMDSv1/v2 to steal cloud instance profiles',
+        'Serverless function breakout & API authorization bypass testing',
+        'Executive CVSS v3.1 report with step-by-step developer remediation',
       ],
     },
     {
-      icon: TrendingDown,
-      title: 'FinOps Cloud Cost Slashing',
-      tag: '-30% to -45% Typical Savings',
-      description: 'Audit workloads, replace costly on-demand instances with automated Spot fleets, and right-size capacity.',
+      icon: GitBranch,
+      title: 'Shift-Left IaC Security & Guardrails',
+      tag: 'Terraform • OpenTofu • Helm',
+      description: 'Prevent misconfigured infrastructure from ever reaching production by implementing automated security gating in your Git pipelines.',
       bullets: [
-        'Spot fleet & Karpenter automated orchestration',
-        'GPU spot instances & serverless scaling',
-        'Savings Plans & Reserved Instance optimization',
+        'Static analysis of Terraform, Terragrunt & Helm in GitHub / Bitbucket',
+        'Automated detection of hardcoded secrets, API tokens & unencrypted disks',
+        'Auto-generated pull requests applying secure IaC baseline templates',
       ],
     },
     {
-      icon: ShieldAlert,
-      title: 'Zero-Trust Security & Hardening',
-      tag: 'SOC2 & CIS Ready',
-      description: 'Embed security into your pipeline with least-privilege IAM, automated Vault secrets, and WAF defense.',
+      icon: FileCheck2,
+      title: 'Continuous Compliance & Posture (CSPM)',
+      tag: 'SOC 2 • ISO 27001 • CIS • HIPAA',
+      description: 'Maintain 24/7 continuous audit readiness with real-time compliance drift monitoring and automated evidence collection.',
       bullets: [
-        'CIS Foundation Benchmark compliance',
-        'Automated secret management & key rotation',
-        'Air-gapped private model inference compliance',
+        'Continuous compliance mapping against SOC 2 Type II and ISO 27001',
+        'Real-time drift alerts delivered to Slack, Microsoft Teams & Jira',
+        'One-click exportable audit packages ready for external auditor review',
       ],
     },
   ]
 
   return (
-    <section className="services-scope-section" id="services">
+    <section className="services-section" id="services">
       <div className="container">
         <div className="section-header">
           <div className="badge">
-            <Terminal size={14} className="text-primary" />
-            <span>Core Capabilities</span>
+            <KeyRound size={14} className="text-primary" />
+            <span>Comprehensive Capabilities</span>
           </div>
           <h2 className="section-title">
-            End-to-End <span className="accent">Cloud, DevOps &amp; AI Scope</span>
+            Enterprise Cloud Audit & <span className="accent">Security Capabilities</span>
           </h2>
           <p className="section-subtitle">
-            From NVIDIA/AMD GPU kernel tuning and high-speed CI/CD to multi-cloud GitOps architecture.
+            Engineered for high-growth tech companies and enterprise workloads requiring rigorous cloud security posture and zero regulatory blind spots.
           </p>
         </div>
 
         <div className="services-grid">
-          {services.map((svc, i) => {
-            const Icon = svc.icon
+          {services.map((srv, idx) => {
+            const Icon = srv.icon
             return (
-              <div key={i} className="service-card glass-panel">
-                <div className="service-card-top">
-                  <div className="service-icon-box">
-                    <Icon size={24} className="service-icon" />
+              <div key={idx} className="service-card">
+                <div className="service-card-header">
+                  <div className="service-icon-wrapper">
+                    <Icon size={22} className="text-primary" />
                   </div>
-                  <span className="service-tag">{svc.tag}</span>
+                  <span className="service-tag">{srv.tag}</span>
                 </div>
-                <h3 className="service-title">{svc.title}</h3>
-                <p className="service-desc">{svc.description}</p>
-                <div className="service-bullets">
-                  {svc.bullets.map((b, bIdx) => (
-                    <div key={bIdx} className="service-bullet-item">
-                      <CheckCircle2 size={15} className="text-cyan" />
+                <h3 className="service-title">{srv.title}</h3>
+                <p className="service-desc">{srv.description}</p>
+                <ul className="service-bullets">
+                  {srv.bullets.map((b, bIdx) => (
+                    <li key={bIdx}>
+                      <CheckCircle2 size={14} className="text-success" />
                       <span>{b}</span>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </div>
             )
           })}
