@@ -13,7 +13,7 @@ permissions:
 env:
   GCP_REGION: ${{ vars.GCP_REGION || 'asia-southeast1' }}
   GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID || 'valnia-dev-88' }}
-  GCP_ARTIFACT_REPO: ${{ vars.GCP_ARTIFACT_REPO || 'valnia' }}
+  GCP_ARTIFACT_REPO: ${{ vars.GCP_ARTIFACT_REPO || 'kahn' }}
 
 jobs:
   build-and-push:
@@ -27,8 +27,8 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v3
         with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER || 'projects/12704697717/locations/global/workloadIdentityPools/valnia-github-pool/providers/valnia-github-provider' }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT || 'valnia-cicd-sa@valnia-dev-88.iam.gserviceaccount.com' }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER || 'projects/12704697717/locations/global/workloadIdentityPools/kahn-github-pool/providers/kahn-github-provider' }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT || 'kahn-cicd-sa@valnia-dev-88.iam.gserviceaccount.com' }}
           token_format: access_token
 
       - name: Login to Google Artifact Registry
@@ -77,8 +77,8 @@ jobs:
       - name: Authenticate to Google Cloud via WIF
         uses: google-github-actions/auth@v3
         with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER || 'projects/12704697717/locations/global/workloadIdentityPools/valnia-github-pool/providers/valnia-github-provider' }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT || 'valnia-cicd-sa@valnia-dev-88.iam.gserviceaccount.com' }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER || 'projects/12704697717/locations/global/workloadIdentityPools/kahn-github-pool/providers/kahn-github-provider' }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT || 'kahn-cicd-sa@valnia-dev-88.iam.gserviceaccount.com' }}
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v3
@@ -90,13 +90,13 @@ jobs:
           service: kahn-be
           region: ${{ env.GCP_REGION }}
           image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/kahn-backend:${{ github.sha }}
-          flags: '--timeout=3600s --service-account=valnia-sa@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com'
+          flags: '--timeout=3600s --service-account=kahn-sa@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com'
 
       - name: Grant Invoker Role to Frontend SA
         run: |
           gcloud run services add-iam-policy-binding kahn-be \
             --region=${{ env.GCP_REGION }} \
-            --member="serviceAccount:valnia-sa@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com" \
+            --member="serviceAccount:kahn-sa@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com" \
             --role="roles/run.invoker"
 
       - name: Deploy Frontend to Cloud Run
@@ -108,7 +108,7 @@ jobs:
           image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/kahn-frontend:${{ github.sha }}
           env_vars: |
             BACKEND_URL=${{ steps.deploy_backend.outputs.url }}
-          flags: '--timeout=3600s --service-account=valnia-sa@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com'
+          flags: '--timeout=3600s --service-account=kahn-sa@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com'
 
       - name: Deployment Summary
         run: |
