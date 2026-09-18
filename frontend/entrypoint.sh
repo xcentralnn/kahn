@@ -1,6 +1,10 @@
 #!/bin/sh
 set -e
 
+if [ -z "$BACKEND_URL" ]; then
+    export BACKEND_URL="https://kahn-be-ol3cdqlvfq-as.a.run.app"
+fi
+
 fetch_token() {
     if [ -n "$BACKEND_URL" ] && echo "$BACKEND_URL" | grep -q "^https://"; then
         for i in 1 2 3 4 5; do
