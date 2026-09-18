@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PageLoader from './components/PageLoader'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import PartnerBanner from './components/PartnerBanner'
@@ -18,6 +19,7 @@ export default function App() {
 
   return (
     <div className="app-wrapper">
+      <PageLoader />
       <div className="ambient-grid" aria-hidden="true"></div>
       <Navbar onOpenTerminal={() => setIsTerminalOpen(true)} />
       <main>
