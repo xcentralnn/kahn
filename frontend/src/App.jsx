@@ -6,6 +6,7 @@ import DeliveryPlans from './components/DeliveryPlans'
 import ServicesScope from './components/ServicesScope'
 import MaintenanceSupport from './components/MaintenanceSupport'
 import ProjectEstimator from './components/ProjectEstimator'
+import HardwareFleet from './components/HardwareFleet'
 import ContactConsulting from './components/ContactConsulting'
 import FAQ from './components/FAQ'
 import Footer from './components/Footer'
@@ -26,6 +27,7 @@ export default function App() {
         <ServicesScope />
         <MaintenanceSupport />
         <ProjectEstimator onSelectScope={(scope) => setSelectedScope(scope)} />
+        <HardwareFleet />
         <ContactConsulting prefilledScope={selectedScope} />
         <FAQ />
       </main>
