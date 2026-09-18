@@ -1,4 +1,4 @@
-name: Build Multi-Arch & Deploy to GCP
+name: Build ARM & Deploy to GCP
 
 on:
   push:
@@ -17,7 +17,7 @@ env:
 
 jobs:
   build-and-push:
-    name: Build Multi-Arch Images (ARM Runner)
+    name: Build ARM Images
     runs-on: ubuntu-24.04-arm
     steps:
       - name: Checkout Code
@@ -38,17 +38,14 @@ jobs:
           username: oauth2accesstoken
           password: ${{ steps.auth.outputs.access_token }}
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v4
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
-      - name: Build and Push Backend Image (linux/arm64, linux/amd64)
+      - name: Build and Push Backend Image (linux/arm64)
         uses: docker/build-push-action@v7
         with:
           context: ./backend
-          platforms: linux/arm64,linux/amd64
+          platforms: linux/arm64
           push: true
           tags: |
             ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/valnia-backend:${{ github.sha }}
@@ -56,11 +53,11 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Build and Push Frontend Image (linux/arm64, linux/amd64)
+      - name: Build and Push Frontend Image (linux/arm64)
         uses: docker/build-push-action@v7
         with:
           context: ./frontend
-          platforms: linux/arm64,linux/amd64
+          platforms: linux/arm64
           push: true
           tags: |
             ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/valnia-frontend:${{ github.sha }}

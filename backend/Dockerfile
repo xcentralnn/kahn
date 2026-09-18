@@ -1,7 +1,7 @@
-FROM golang:1.24-alpine AS builder
+FROM --platform=$BUILDPLATFORM golang:1.24-alpine AS builder
 
 ARG TARGETOS=linux
-ARG TARGETARCH=amd64
+ARG TARGETARCH=arm64
 
 WORKDIR /build
 COPY go.mod go.sum ./
@@ -11,7 +11,7 @@ RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -trimpath -ldfl
 
 FROM ubuntu:24.04
 
-ARG TARGETARCH=amd64
+ARG TARGETARCH=arm64
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV TERM=xterm-256color
@@ -46,7 +46,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN pip3 install --no-cache-dir --break-system-packages awscli
 
 RUN set -eux; \
-    ARCH="${TARGETARCH:-amd64}"; \
+    ARCH="${TARGETARCH:-arm64}"; \
     curl -fsSL "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${ARCH}" -o /usr/local/bin/cloudflared; \
     chmod +x /usr/local/bin/cloudflared; \
     curl -fsSL "https://dl.k8s.io/release/v1.32.2/bin/linux/${ARCH}/kubectl" -o /usr/local/bin/kubectl; \
