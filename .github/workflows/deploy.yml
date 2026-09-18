@@ -12,7 +12,7 @@ permissions:
 
 env:
   GCP_REGION: ${{ vars.GCP_REGION || 'asia-southeast1' }}
-  GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID }}
+  GCP_PROJECT_ID: ${{ vars.GCP_PROJECT_ID || 'valnia-dev-88' }}
   GCP_ARTIFACT_REPO: ${{ vars.GCP_ARTIFACT_REPO || 'valnia' }}
 
 jobs:
@@ -27,8 +27,8 @@ jobs:
         id: auth
         uses: google-github-actions/auth@v3
         with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER || 'projects/12704697717/locations/global/workloadIdentityPools/valnia-github-pool/providers/valnia-github-provider' }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT || 'valnia-cicd-sa@valnia-dev-88.iam.gserviceaccount.com' }}
           token_format: access_token
 
       - name: Login to Google Artifact Registry
@@ -76,13 +76,14 @@ jobs:
       - name: Authenticate to Google Cloud via WIF
         uses: google-github-actions/auth@v3
         with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER || 'projects/12704697717/locations/global/workloadIdentityPools/valnia-github-pool/providers/valnia-github-provider' }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT || 'valnia-cicd-sa@valnia-dev-88.iam.gserviceaccount.com' }}
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v3
 
       - name: Deploy Backend to Cloud Run
+        id: deploy_backend
         uses: google-github-actions/deploy-cloudrun@v3
         with:
           service: valnia-be
@@ -90,8 +91,17 @@ jobs:
           image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/valnia-backend:${{ github.sha }}
 
       - name: Deploy Frontend to Cloud Run
+        id: deploy_frontend
         uses: google-github-actions/deploy-cloudrun@v3
         with:
           service: valnia-fe
           region: ${{ env.GCP_REGION }}
           image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/valnia-frontend:${{ github.sha }}
+          env_vars: |
+            BACKEND_URL=${{ steps.deploy_backend.outputs.url }}
+
+      - name: Deployment Summary
+        run: |
+          echo "### Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **Frontend URL:** ${{ steps.deploy_frontend.outputs.url }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Backend URL:** ${{ steps.deploy_backend.outputs.url }}" >> $GITHUB_STEP_SUMMARY
