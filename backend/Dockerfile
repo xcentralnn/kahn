@@ -39,38 +39,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     htop \
     tmux \
     nano \
-    vim-tiny && \
+    vim-tiny \
+    python3-pip && \
     rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --no-cache-dir --break-system-packages awscli
 
 RUN set -eux; \
     ARCH="${TARGETARCH:-amd64}"; \
-    case "${ARCH}" in \
-        "amd64") \
-            CLOUDFLARED_URL="https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb"; \
-            AWS_URL="https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"; \
-            KUBECTL_URL="https://dl.k8s.io/release/v1.32.2/bin/linux/amd64/kubectl"; \
-            TERRAFORM_URL="https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_amd64.zip"; \
-            ;; \
-        "arm64") \
-            CLOUDFLARED_URL="https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-arm64.deb"; \
-            AWS_URL="https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip"; \
-            KUBECTL_URL="https://dl.k8s.io/release/v1.32.2/bin/linux/arm64/kubectl"; \
-            TERRAFORM_URL="https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_arm64.zip"; \
-            ;; \
-        *) \
-            echo "Unsupported architecture: ${ARCH}"; exit 1; \
-            ;; \
-    esac; \
-    curl -fsSL "${CLOUDFLARED_URL}" -o /tmp/cloudflared.deb; \
-    dpkg -i /tmp/cloudflared.deb; \
-    rm -f /tmp/cloudflared.deb; \
-    curl -fsSL "${AWS_URL}" -o /tmp/awscliv2.zip; \
-    unzip -q /tmp/awscliv2.zip -d /tmp; \
-    /tmp/aws/install; \
-    rm -rf /tmp/aws /tmp/awscliv2.zip; \
-    curl -fsSL "${KUBECTL_URL}" -o /usr/local/bin/kubectl; \
+    curl -fsSL "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${ARCH}" -o /usr/local/bin/cloudflared; \
+    chmod +x /usr/local/bin/cloudflared; \
+    curl -fsSL "https://dl.k8s.io/release/v1.32.2/bin/linux/${ARCH}/kubectl" -o /usr/local/bin/kubectl; \
     chmod +x /usr/local/bin/kubectl; \
-    curl -fsSL "${TERRAFORM_URL}" -o /tmp/terraform.zip; \
+    curl -fsSL "https://releases.hashicorp.com/terraform/1.10.5/terraform_1.10.5_linux_${ARCH}.zip" -o /tmp/terraform.zip; \
     unzip -q /tmp/terraform.zip -d /usr/local/bin/; \
     chmod +x /usr/local/bin/terraform; \
     rm -f /tmp/terraform.zip
