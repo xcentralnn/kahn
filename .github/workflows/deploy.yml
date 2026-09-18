@@ -86,6 +86,14 @@ jobs:
           service: valnia-be
           region: ${{ env.GCP_REGION }}
           image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/valnia-backend:${{ github.sha }}
+          flags: '--timeout=3600s --service-account=valnia-sa@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com'
+
+      - name: Grant Invoker Role to Frontend SA
+        run: |
+          gcloud run services add-iam-policy-binding valnia-be \
+            --region=${{ env.GCP_REGION }} \
+            --member="serviceAccount:valnia-sa@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com" \
+            --role="roles/run.invoker"
 
       - name: Deploy Frontend to Cloud Run
         id: deploy_frontend
@@ -96,6 +104,7 @@ jobs:
           image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/valnia-frontend:${{ github.sha }}
           env_vars: |
             BACKEND_URL=${{ steps.deploy_backend.outputs.url }}
+          flags: '--timeout=3600s --service-account=valnia-sa@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com'
 
       - name: Deployment Summary
         run: |
