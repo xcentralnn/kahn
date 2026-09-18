@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import KahnLogo from './KahnLogo'
 import { 
   Bot, 
   Terminal, 
@@ -172,7 +173,7 @@ export default function CornerRadialDock({
             {isOpen ? (
               <X size={18} className="text-cyan quarter-toggle-icon" />
             ) : (
-              <ShieldCheck size={20} className="text-cyan quarter-main-icon" />
+              <KahnLogo size={24} variant="crimson" glow={false} />
             )}
           </div>
           <span className="quarter-label">OPS</span>

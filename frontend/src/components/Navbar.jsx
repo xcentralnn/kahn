@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Terminal, Shield, Menu, X } from 'lucide-react'
+import { Terminal, Menu, X } from 'lucide-react'
+import KahnLogo from './KahnLogo'
 
 export default function Navbar({ onOpenTerminal }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -9,12 +10,12 @@ export default function Navbar({ onOpenTerminal }) {
       <div className="container navbar-container">
         <a href="#" className="navbar-brand">
           <div className="brand-logo-icon">
-            <Shield size={18} className="text-primary" />
+            <KahnLogo size={28} variant="crimson" />
           </div>
           <span className="brand-name">
             Kahn<span className="brand-dot">.</span>
           </span>
-          <span className="brand-subtag">SECURITY & AUDIT</span>
+          <span className="brand-subtag">SECURITY &amp; AUDIT</span>
         </a>
 
         <nav className={`navbar-nav ${mobileMenuOpen ? 'mobile-open' : ''}`}>
