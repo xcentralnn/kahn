@@ -1,6 +1,6 @@
-# Valnia • Cloud Infrastructure, AI/GPU & Delivery Consulting Platform
+# Kahn • Cloud Infrastructure, AI/GPU & Delivery Consulting Platform
 
-Valnia is an enterprise cloud infrastructure, AI/GPU acceleration, and DevOps delivery consulting platform. Designed to provide transparent delivery plans from high-speed landing pages and containerized monoliths to multi-cloud Kubernetes fleets and private self-hosted LLM clusters with 24/7 SRE maintenance.
+Kahn is an enterprise cloud infrastructure, AI/GPU acceleration, and DevOps delivery consulting platform. Designed to provide transparent delivery plans from high-speed landing pages and containerized monoliths to multi-cloud Kubernetes fleets and private self-hosted LLM clusters with 24/7 SRE maintenance.
 
 ## Key Delivery Packages
 

@@ -48,6 +48,8 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
+            ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/kahn-backend:${{ github.sha }}
+            ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/kahn-backend:latest
             ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/valnia-backend:${{ github.sha }}
             ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/valnia-backend:latest
           cache-from: type=gha
@@ -60,6 +62,8 @@ jobs:
           platforms: linux/amd64
           push: true
           tags: |
+            ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/kahn-frontend:${{ github.sha }}
+            ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/kahn-frontend:latest
             ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/valnia-frontend:${{ github.sha }}
             ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/valnia-frontend:latest
           cache-from: type=gha
@@ -83,14 +87,14 @@ jobs:
         id: deploy_backend
         uses: google-github-actions/deploy-cloudrun@v3
         with:
-          service: valnia-be
+          service: kahn-be
           region: ${{ env.GCP_REGION }}
-          image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/valnia-backend:${{ github.sha }}
+          image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/kahn-backend:${{ github.sha }}
           flags: '--timeout=3600s --service-account=valnia-sa@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com'
 
       - name: Grant Invoker Role to Frontend SA
         run: |
-          gcloud run services add-iam-policy-binding valnia-be \
+          gcloud run services add-iam-policy-binding kahn-be \
             --region=${{ env.GCP_REGION }} \
             --member="serviceAccount:valnia-sa@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com" \
             --role="roles/run.invoker"
@@ -99,9 +103,9 @@ jobs:
         id: deploy_frontend
         uses: google-github-actions/deploy-cloudrun@v3
         with:
-          service: valnia-fe
+          service: kahn-fe
           region: ${{ env.GCP_REGION }}
-          image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/valnia-frontend:${{ github.sha }}
+          image: ${{ env.GCP_REGION }}-docker.pkg.dev/${{ env.GCP_PROJECT_ID }}/${{ env.GCP_ARTIFACT_REPO }}/kahn-frontend:${{ github.sha }}
           env_vars: |
             BACKEND_URL=${{ steps.deploy_backend.outputs.url }}
           flags: '--timeout=3600s --service-account=valnia-sa@${{ env.GCP_PROJECT_ID }}.iam.gserviceaccount.com'

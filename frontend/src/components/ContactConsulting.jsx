@@ -93,11 +93,11 @@ export default function ContactConsulting({ prefilledScope }) {
               <span className="direct-channels-title">DIRECT ARCHITECT CHANNELS:</span>
               <div className="channel-link">
                 <Mail size={16} className="text-cyan" />
-                <a href="mailto:consulting@valnia.cloud">consulting@valnia.cloud</a>
+                <a href="mailto:consulting@kahn.cloud">consulting@kahn.cloud</a>
               </div>
               <div className="channel-link">
                 <MessageSquare size={16} className="text-emerald" />
-                <span>Telegram: @valnia_consulting</span>
+                <span>Telegram: @kahn_consulting</span>
               </div>
             </div>
           </div>

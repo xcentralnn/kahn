@@ -79,7 +79,7 @@ func loadToolVersions() map[string]string {
 func handleRoot(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	_ = json.NewEncoder(w).Encode(map[string]string{
-		"service": "valnia-backend",
+		"service": "kahn-backend",
 		"status":  "healthy",
 		"role":    "jump-host",
 	})
@@ -221,7 +221,7 @@ func main() {
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 
 	go func() {
-		log.Printf("Valnia Bastion backend listening on :%s", port)
+		log.Printf("Kahn Bastion backend listening on :%s", port)
 		if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			log.Fatalf("Server error: %v", err)
 		}

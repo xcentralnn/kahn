@@ -4,8 +4,8 @@ REPO_NAME ?= valnia
 TAG ?= latest
 PLATFORMS ?= linux/amd64,linux/arm64
 
-FE_IMAGE := $(REGION)-docker.pkg.dev/$(PROJECT_ID)/$(REPO_NAME)/valnia-frontend:$(TAG)
-BE_IMAGE := $(REGION)-docker.pkg.dev/$(PROJECT_ID)/$(REPO_NAME)/valnia-backend:$(TAG)
+FE_IMAGE := $(REGION)-docker.pkg.dev/$(PROJECT_ID)/$(REPO_NAME)/kahn-frontend:$(TAG)
+BE_IMAGE := $(REGION)-docker.pkg.dev/$(PROJECT_ID)/$(REPO_NAME)/kahn-backend:$(TAG)
 
 .PHONY: help build build-fe build-be build-arm build-multiarch up down auth docker-auth push push-fe push-be
 
@@ -21,14 +21,14 @@ help:
 build: build-fe build-be
 
 build-fe:
-	cd frontend && docker build -t valnia-frontend:$(TAG) .
+	cd frontend && docker build -t kahn-frontend:$(TAG) .
 
 build-be:
-	cd backend && docker build -t valnia-backend:$(TAG) .
+	cd backend && docker build -t kahn-backend:$(TAG) .
 
 build-arm:
-	cd frontend && docker buildx build --platform linux/arm64 -t valnia-frontend:arm64 --load .
-	cd backend && docker buildx build --platform linux/arm64 -t valnia-backend:arm64 --load .
+	cd frontend && docker buildx build --platform linux/arm64 -t kahn-frontend:arm64 --load .
+	cd backend && docker buildx build --platform linux/arm64 -t kahn-backend:arm64 --load .
 
 build-multiarch:
 	cd frontend && docker buildx build --platform $(PLATFORMS) -t $(FE_IMAGE) .

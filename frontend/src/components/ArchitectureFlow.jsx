@@ -11,15 +11,15 @@ export default function ArchitectureFlow() {
       number: '01',
       title: 'Declarative Git Push',
       summary: 'Developers push standard code or Kubernetes/Terraform manifests.',
-      details: 'Valnia integrates via webhooks to GitHub, GitLab, or Bitbucket. No proprietary DSLs required. Pure standard OpenTofu, Helm, or Docker manifests.',
+      details: 'Kahn integrates via webhooks to GitHub, GitLab, or Bitbucket. No proprietary DSLs required. Pure standard OpenTofu, Helm, or Docker manifests.',
       codeTitle: 'git-commit-hook.yaml',
       codeSnippet: `name: production-deployment
 on:
   push:
     branches: [main]
 jobs:
-  valnia-orchestrate:
-    uses: valnia/pipeline-action@v2
+  kahn-orchestrate:
+    uses: kahn/pipeline-action@v2
     with:
       autonomic_guardrails: strict
       cost_target_reduction: 40%`,
@@ -30,7 +30,7 @@ jobs:
       number: '02',
       title: 'Agentic Pre-Flight Engine',
       summary: 'AI analyzes blast radius, security posture, and cloud cost impact.',
-      details: 'Valnia runs real-time static analysis, verifies CIS benchmarks, and checks spot instance availability across regions before touching production.',
+      details: 'Kahn runs real-time static analysis, verifies CIS benchmarks, and checks spot instance availability across regions before touching production.',
       codeTitle: 'ai-audit-result.json',
       codeSnippet: `{
   "audit_status": "PASSED",
@@ -59,7 +59,7 @@ All regions synced: US-East-1, EU-Central-1, AP-Southeast-1.`,
       number: '04',
       title: 'Continuous Autonomous Healing',
       summary: 'Real-time eBPF telemetry actively remediates anomalies.',
-      details: 'Continuous monitoring tracks p99 latency, memory leaks, and CPU throttling. Valnia self-heals, scales pods, or rolls back without waking on-call engineers.',
+      details: 'Continuous monitoring tracks p99 latency, memory leaks, and CPU throttling. Kahn self-heals, scales pods, or rolls back without waking on-call engineers.',
       codeTitle: 'telemetry-action.json',
       codeSnippet: `{
   "sensor": "eBPF-kernel-probe",

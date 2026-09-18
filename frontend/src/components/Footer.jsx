@@ -11,7 +11,7 @@ export default function Footer() {
                 <Terminal size={18} className="icon-brand" />
               </div>
               <span className="brand-name">
-                Valnia<span className="brand-dot">.</span>
+                Kahn<span className="brand-dot">.</span>
               </span>
             </a>
             <p className="footer-brand-desc">
@@ -59,7 +59,7 @@ export default function Footer() {
           <div className="footer-links-col">
             <span className="footer-col-title">Contact</span>
             <ul>
-              <li><a href="mailto:consulting@valnia.cloud">consulting@valnia.cloud</a></li>
+              <li><a href="mailto:consulting@kahn.cloud">consulting@kahn.cloud</a></li>
               <li><a href="#contact">Book Architecture Review</a></li>
               <li><a href="#estimator">Scope Estimator</a></li>
               <li><a href="#faq">Delivery FAQ</a></li>
@@ -69,7 +69,7 @@ export default function Footer() {
 
         <div className="footer-bottom-bar">
           <p className="copyright-text">
-            &copy; 2026 Valnia Cloud &amp; AI Consulting. 100% Infrastructure as Code handover.
+            &copy; 2026 Kahn Cloud &amp; AI Consulting. 100% Infrastructure as Code handover.
           </p>
           <div className="footer-socials">
             <a href="https://github.com/xcentralnn/valnia" target="_blank" rel="noreferrer" aria-label="GitHub">

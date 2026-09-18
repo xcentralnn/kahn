@@ -35,7 +35,7 @@ export default function CTASection() {
               <div className="cta-success-box">
                 <CheckCircle2 size={24} className="text-emerald" />
                 <div>
-                  <h4>Welcome to Valnia Platform!</h4>
+                  <h4>Welcome to Kahn Platform!</h4>
                   <p>Check your inbox at <strong>{email}</strong> for your instant sandbox credentials.</p>
                 </div>
               </div>

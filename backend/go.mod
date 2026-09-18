@@ -1,4 +1,4 @@
-module valnia
+module kahn
 
 go 1.24
 

@@ -23,7 +23,7 @@ export default function Features() {
             Engineered for High-Velocity <span className="accent">Platform Engineering</span>
           </h2>
           <p className="section-subtitle">
-            Valnia eliminates infrastructure toil with autonomous orchestration, automated compliance guardrails, and real-time self-healing agents.
+            Kahn eliminates infrastructure toil with autonomous orchestration, automated compliance guardrails, and real-time self-healing agents.
           </p>
         </div>
 
@@ -126,7 +126,7 @@ export default function Features() {
               <div className="pr-bubble">
                 <div className="pr-header">
                   <TerminalSquare size={16} className="text-cyan" />
-                  <span>pr-482-payment-v2.valnia.preview</span>
+                  <span>pr-482-payment-v2.kahn.preview</span>
                 </div>
                 <div className="pr-meta">
                   <span className="text-emerald">● Live Ready</span>

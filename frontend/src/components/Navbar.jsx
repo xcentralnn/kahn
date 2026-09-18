@@ -22,7 +22,7 @@ export default function Navbar({ onOpenTerminal }) {
           </div>
           <div className="brand-text-group">
             <span className="brand-name">
-              Valnia<span className="brand-dot">.</span>
+              Kahn<span className="brand-dot">.</span>
             </span>
             <span className="brand-tag">Cloud Bastion</span>
           </div>

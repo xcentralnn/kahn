@@ -7,7 +7,7 @@ WORKDIR /build
 COPY go.mod go.sum ./
 RUN go mod download
 COPY main.go ./
-RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -trimpath -ldflags="-w -s" -o /valnia-backend .
+RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} go build -trimpath -ldflags="-w -s" -o /kahn-backend .
 
 FROM ubuntu:24.04
 
@@ -61,8 +61,8 @@ RUN curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | gpg --dea
     apt-get update && apt-get install -y --no-install-recommends google-cloud-cli && \
     rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /valnia-backend /usr/local/bin/valnia-backend
+COPY --from=builder /kahn-backend /usr/local/bin/kahn-backend
 
 EXPOSE 8080
 
-CMD ["/usr/local/bin/valnia-backend"]
+CMD ["/usr/local/bin/kahn-backend"]

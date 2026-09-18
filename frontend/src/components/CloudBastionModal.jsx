@@ -168,7 +168,7 @@ export default function CloudBastionModal({ isOpen, onClose }) {
           </div>
 
           <div className="mac-center-title">
-            <span className="title-text">valnia — cloud-shell — bash</span>
+            <span className="title-text">kahn - cloud-shell - bash</span>
           </div>
 
           <div className="mac-titlebar-right">
