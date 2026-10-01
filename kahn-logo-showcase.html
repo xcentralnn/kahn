@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KAHN Cyber Defense | Brand Identity &amp; Logo System</title>
+  <link rel="icon" type="image/svg+xml" href="kahn-logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b12;
+      --card-bg: #0d1424;
+      --card-hover: #121c33;
+      --border: rgba(148, 163, 184, 0.15);
+      --border-glow: rgba(20, 184, 166, 0.4);
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #14b8a6;
+      --primary-glow: rgba(20, 184, 166, 0.25);
+      --cyan: #06b6d4;
+      --blue: #38bdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      padding: 48px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(20, 184, 166, 0.08) 0%, transparent 40%);
+    }
+
+    .container {
+      max-width: 1140px;
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(20, 184, 166, 0.12);
+      border: 1px solid rgba(20, 184, 166, 0.35);
+      border-radius: 9999px;
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 40%, #5eead4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-glow);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(20, 184, 166, 0.2);
+      color: var(--primary);
+      border: 1px solid rgba(20, 184, 166, 0.4);
+    }
+
+    .preview-box {
+      width: 100%;
+      aspect-ratio: 1;
+      max-width: 240px;
+      background: #050810;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      margin: 16px 0 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preview-box.light {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .preview-box.small-demo {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+      background: #090e1a;
+    }
+
+    .preview-box img,
+    .preview-box svg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .card h3 {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      color: #fff;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 24px;
+    }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 20px;
+      background: linear-gradient(135deg, #0d9488, #14b8a6);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px var(--primary-glow);
+      transition: all 0.2s ease;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .action-btn:hover {
+      opacity: 0.95;
+      box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4);
+    }
+
+    .spec-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      margin-top: 12px;
+    }
+
+    .spec-card h2 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: #fff;
+    }
+
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .palette-item {
+      background: #080d1a;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .color-swatch {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .color-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .color-hex {
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="tag">Identity System</div>
+      <h1>KAHN Brand Identity</h1>
+      <p class="subtitle">Precision Cyber Shield &bull; Bastion Monogram &bull; Zero Trust Quantum Nexus. Engineered for clarity across favicon, application header, and high-resolution enterprise displays.</p>
+    </header>
+
+    <div class="grid">
+      <div class="card">
+        <span class="card-badge">Production Master</span>
+        <div class="preview-box">
+          <img src="kahn-logo.svg" alt="KAHN Cyber Shield Logo">
+        </div>
+        <h3>Cyber Shield Emblem</h3>
+        <p>1:1 vector geometry featuring faceted shield armor, stylized architectural K monogram, and glowing Zero Trust nexus core.</p>
+        <a href="kahn-logo.svg" download="kahn-logo.svg" class="action-btn">Download kahn-logo.svg</a>
+      </div>
+
+      <div class="card">
+        <span class="card-badge">Display Test</span>
+        <div class="preview-box light">
+          <img src="kahn-logo.svg" alt="KAHN Light Mode Test">
+        </div>
+        <h3>High-Contrast Display</h3>
+        <p>High legibility verified against high-key and low-key environments with crisp edge contrast and self-contained dark canvas.</p>
+        <a href="kahn-logo.svg" target="_blank" class="action-btn">Inspect Vector Source</a>
+      </div>
+
+      <div class="card">
+        <span class="card-badge">Multi-Scale UI</span>
+        <div class="preview-box small-demo">
+          <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+            <div style="width: 44px; height: 44px; border-radius: 10px; background: rgba(15,23,42,0.9); border: 1px solid rgba(20,184,166,0.4); padding: 3px; display:flex; align-items:center; justify-content:center;">
+              <img src="kahn-logo.svg" style="width:100%; height:100%; object-fit:contain;" alt="44px Navbar">
+            </div>
+            <span style="font-size: 10px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">44px UI</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(15,23,42,0.9); border: 1px solid rgba(20,184,166,0.4); padding: 2px; display:flex; align-items:center; justify-content:center;">
+              <img src="kahn-logo.svg" style="width:100%; height:100%; object-fit:contain;" alt="32px Tab">
+            </div>
+            <span style="font-size: 10px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">32px Tab</span>
+          </div>
+
+          <div style="display:flex; flex-direction:column; align-items:center; gap:6px;">
+            <div style="width: 20px; height: 20px; border-radius: 4px; background: rgba(15,23,42,0.9); padding: 1px; display:flex; align-items:center; justify-content:center;">
+              <img src="kahn-logo.svg" style="width:100%; height:100%; object-fit:contain;" alt="20px Favicon">
+            </div>
+            <span style="font-size: 10px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace;">20px Favicon</span>
+          </div>
+        </div>
+        <h3>Responsive Fidelity</h3>
+        <p>Pixel-grid calibrated proportions ensure that even at 20px favicon or 44px topbar scale, the monogram and shield remain crisp.</p>
+        <a href="go-web/web/index.html" class="action-btn">Launch Web Bastion</a>
+      </div>
+    </div>
+
+    <div class="spec-card">
+      <h2>Brand Design Tokens &amp; Color Spectrum</h2>
+      <div class="palette-grid">
+        <div class="palette-item">
+          <div class="color-swatch" style="background: #070b12;"></div>
+          <div>
+            <div class="color-name">Obsidian Deep</div>
+            <div class="color-hex">#070B12</div>
+          </div>
+        </div>
+        <div class="palette-item">
+          <div class="color-swatch" style="background: #14b8a6;"></div>
+          <div>
+            <div class="color-name">Cyber Teal</div>
+            <div class="color-hex">#14B8A6</div>
+          </div>
+        </div>
+        <div class="palette-item">
+          <div class="color-swatch" style="background: #06b6d4;"></div>
+          <div>
+            <div class="color-name">Electric Cyan</div>
+            <div class="color-hex">#06B6D4</div>
+          </div>
+        </div>
+        <div class="palette-item">
+          <div class="color-swatch" style="background: #38bdf8;"></div>
+          <div>
+            <div class="color-name">Luminous Sky</div>
+            <div class="color-hex">#38BDF8</div>
+          </div>
+        </div>
+        <div class="palette-item">
+          <div class="color-swatch" style="background: #5eead4;"></div>
+          <div>
+            <div class="color-name">Quantum Core</div>
+            <div class="color-hex">#5EEAD4</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
